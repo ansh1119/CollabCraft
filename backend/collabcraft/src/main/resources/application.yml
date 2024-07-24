@@ -1,0 +1,11 @@
+spring:
+    application:
+        name: collabcraft
+    data:
+        mongodb:
+            auto-index-creation: true
+            database: collabDB
+            host: localhost
+            port: 27017
+    main:
+        allow-circular-references: 'true '
