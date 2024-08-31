@@ -62,9 +62,18 @@ fun SignUp2Screen(onNavigateBack: () -> Unit) {
                         .padding(start = 20.dp, end = 20.dp, top = 60.dp)
                 ) {
                     Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp)) {
-                        InputField(label = "Name", value = username, onValueChange = { username = it })
-                        InputField(label = "Enter Your Password", value = password, onValueChange = { password = it })
-                        InputField(label = "Confirm Your Password", value = cnfPass, onValueChange = { cnfPass = it })
+                        InputField(
+                            label = "Name",
+                            value = username,
+                            onValueChange = { username = it })
+                        InputField(
+                            label = "Enter Your Password",
+                            value = password,
+                            onValueChange = { password = it })
+                        InputField(
+                            label = "Confirm Your Password",
+                            value = cnfPass,
+                            onValueChange = { cnfPass = it })
 
                         Button(
                             modifier = Modifier
@@ -79,7 +88,7 @@ fun SignUp2Screen(onNavigateBack: () -> Unit) {
                                 ),
                             shape = RoundedCornerShape(28.dp),
                             colors = ButtonDefaults.buttonColors(Color(0xFF00E0FF)),
-                            onClick = {  }
+                            onClick = { }
                         ) {
                             Text(text = "Sign In")
                         }
@@ -95,7 +104,10 @@ fun SignUp2Screen(onNavigateBack: () -> Unit) {
                 modifier = Modifier
                     .align(Alignment.CenterStart)
                     .padding(end = 6.dp)
-                    .background(color = Color(0xff586B76), shape = CircleShape)  // Optional background color
+                    .background(
+                        color = Color(0xff586B76),
+                        shape = CircleShape
+                    )  // Optional background color
             ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowLeft,
@@ -110,7 +122,10 @@ fun SignUp2Screen(onNavigateBack: () -> Unit) {
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
                     .padding(end = 6.dp)
-                    .background(color = Color(0xff586B76), shape = CircleShape)  // Optional background color
+                    .background(
+                        color = Color(0xff586B76),
+                        shape = CircleShape
+                    )  // Optional background color
             ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowRight,

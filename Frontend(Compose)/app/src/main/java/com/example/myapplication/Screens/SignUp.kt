@@ -51,12 +51,27 @@ fun SignUpScreen(onNavigateToSignUp2: () -> Unit) {
                         .padding(start = 20.dp, end = 20.dp, top = 40.dp)
                 ) {
                     Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp)) {
-                        InputField(label = "Name", value = username, onValueChange = { username = it })
-                        InputField(label = "College Email ID", value = email, onValueChange = { email = it })
+                        InputField(
+                            label = "Name",
+                            value = username,
+                            onValueChange = { username = it })
+                        InputField(
+                            label = "College Email ID",
+                            value = email,
+                            onValueChange = { email = it })
                         InputField(label = "Year", value = year, onValueChange = { year = it })
-                        InputField(label = "Branch", value = branch, onValueChange = { branch = it })
-                        InputField(label = "First Domain", value = firstDomain, onValueChange = { firstDomain = it })
-                        InputField(label = "Second Domain (Optional)", value = secondDomain, onValueChange = { secondDomain = it })
+                        InputField(
+                            label = "Branch",
+                            value = branch,
+                            onValueChange = { branch = it })
+                        InputField(
+                            label = "First Domain",
+                            value = firstDomain,
+                            onValueChange = { firstDomain = it })
+                        InputField(
+                            label = "Second Domain (Optional)",
+                            value = secondDomain,
+                            onValueChange = { secondDomain = it })
                     }
                 }
             }
@@ -66,7 +81,10 @@ fun SignUpScreen(onNavigateToSignUp2: () -> Unit) {
                 modifier = Modifier
                     .align(Alignment.CenterStart)
                     .padding(end = 6.dp)
-                    .background(color = Color(0xff586B76), shape = CircleShape)  // Optional background color
+                    .background(
+                        color = Color(0xff586B76),
+                        shape = CircleShape
+                    )  // Optional background color
             ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowLeft,
@@ -81,7 +99,10 @@ fun SignUpScreen(onNavigateToSignUp2: () -> Unit) {
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
                     .padding(end = 6.dp)
-                    .background(color = Color(0xff586B76), shape = CircleShape)  // Optional background color
+                    .background(
+                        color = Color(0xff586B76),
+                        shape = CircleShape
+                    )  // Optional background color
             ) {
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowRight,
@@ -92,7 +113,6 @@ fun SignUpScreen(onNavigateToSignUp2: () -> Unit) {
         }
     }
 }
-
 
 
 @Preview(showBackground = true)
