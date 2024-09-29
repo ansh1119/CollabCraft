@@ -5,12 +5,16 @@ import com.example.collabcraft.Entities.Tweets;
 import com.example.collabcraft.Entities.Users;
 import com.example.collabcraft.Services.TweetService;
 import com.example.collabcraft.Services.UserService;
+import org.apache.coyote.Response;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,33 +29,35 @@ public class TweetController {
     UserService userService;
 
     @GetMapping
-    public List<Tweets> getAllTweetsOfUser(){
+    public ResponseEntity<List<Tweets>> getAllTweetsOfUser(){
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         String username=authentication.getName();
         Users user= userService.findByUsername(username);
-        return user.getUserTweets();
+        return ResponseEntity.status(HttpStatus.OK).body(user.getUserTweets());
     }
 
     @PostMapping("/new-tweet")
-    public void createTweet(@RequestBody Tweets tweet){
+    public ResponseEntity<String> createTweet(@RequestBody Tweets tweet){
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         String username=authentication.getName();
+        tweet.setAuthor(username);
         tweet.setTime(LocalDate.now());
         tweetService.createTweet(tweet,username);
+        return ResponseEntity.status(HttpStatus.OK).body("tweet created successfully");
     }
 
     @GetMapping("/all-tweets")
-    public List<Tweets> getAllTweets(){
-        return tweetService.getAllTweets();
+    public ResponseEntity<List<Tweets>> getAllTweets(){
+        return ResponseEntity.status(HttpStatus.OK).body(tweetService.getAllTweets());
     }
 
     @GetMapping("/{domain}")
-    public List<Tweets> getAllTweetsOfDomain(@PathVariable String domain){
-        return tweetService.getTweetsByDomain(domain);
+    public ResponseEntity<List<Tweets>> getAllTweetsOfDomain(@PathVariable String domain){
+        return ResponseEntity.status(HttpStatus.OK).body(tweetService.getTweetsByDomain(domain));
     }
 
     @PutMapping("/apply/{objectId}")
-    public void apply(@PathVariable ObjectId objectId){
+    public ResponseEntity<String> apply(@PathVariable ObjectId objectId){
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         String username=authentication.getName();
         Users user=userService.findByUsername(username);
@@ -59,6 +65,8 @@ public class TweetController {
         if(tweet!=null){
            tweet.getApplications().add(user);
            tweetService.updateTweet(tweet);
+           return ResponseEntity.status(HttpStatus.OK).body("application successful");
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The Tweet Does Not Exist");
     }
 }

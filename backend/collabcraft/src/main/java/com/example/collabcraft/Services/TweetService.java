@@ -31,6 +31,7 @@ public class TweetService {
     public void createTweet(Tweets tweet, String username){
         Users user= userRepository.findByUsername(username);
         Tweets saved=tweetsRepository.save(tweet);
+
         user.getUserTweets().add(saved);
         userRepository.save(user);
     }

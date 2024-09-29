@@ -1,4 +1,4 @@
-package com.example.collabcraft;
+package com.example.collabcraft.Configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

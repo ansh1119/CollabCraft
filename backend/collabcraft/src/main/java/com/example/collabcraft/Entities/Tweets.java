@@ -20,9 +20,21 @@ public class Tweets {
     private ObjectId id;
     @NonNull
     private String content;
+    private String author;
     private String domain;
     private LocalDate time;
     private List<Users> applications=new ArrayList<>();
+
+
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
 
     public void setId(ObjectId id) {
         this.id = id;

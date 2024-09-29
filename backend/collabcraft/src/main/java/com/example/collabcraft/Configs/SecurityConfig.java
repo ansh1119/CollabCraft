@@ -1,4 +1,4 @@
-package com.example.collabcraft.Security;
+package com.example.collabcraft.Configs;
 
 
 import com.example.collabcraft.Services.UserDetailsServiceImpl;
