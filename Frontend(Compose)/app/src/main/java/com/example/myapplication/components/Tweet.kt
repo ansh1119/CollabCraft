@@ -1,4 +1,4 @@
-package com.example.myapplication.Components
+package com.example.myapplication.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,19 +23,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
+import com.example.myapplication.models.Tweet
+import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-@Preview
-fun Tweet() {
+fun Tweet(tweet: Tweet) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -55,10 +53,8 @@ fun Tweet() {
                 verticalAlignment = Alignment.CenterVertically // Center all elements vertically
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Image(
-                        painter = painterResource(R.drawable.dp),
-                        contentDescription = "avatar",
-                        contentScale = ContentScale.Crop,
+                    GlideImage(
+                        imageModel = { tweet.imageUrl },
                         modifier = Modifier
                             .size(36.dp)
                             .clip(CircleShape)
@@ -68,7 +64,7 @@ fun Tweet() {
                     Spacer(modifier = Modifier.width(10.dp))
 
                     Text(
-                        text = "@ARYAN_MISHRA", color = Color.White, style = TextStyle(
+                        text = "@${tweet.username}", color = Color.White, style = TextStyle(
                             fontSize = 13.sp, fontWeight = FontWeight.SemiBold
                         )
                     )
@@ -76,7 +72,9 @@ fun Tweet() {
                     Spacer(modifier = Modifier.width(8.dp))
 
                     Text(
-                        text = "7 hr. ago", color = Color(0xff8E9599), style = TextStyle(
+                        text = "${tweet.hoursAgo} hr. ago",
+                        color = Color(0xff8E9599),
+                        style = TextStyle(
                             fontSize = 8.sp, fontWeight = FontWeight.SemiBold
                         )
                     )
@@ -93,7 +91,7 @@ fun Tweet() {
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
-                text = "need 2 members in my team for  HACKCBS. Interested ones, share ur details(name, year, branch and domain) in the thread.",
+                text = tweet.content,
                 color = Color(0xffffffff),
                 modifier = Modifier.padding(start = 60.dp, end = 30.dp),
                 style = TextStyle(
@@ -118,7 +116,7 @@ fun Tweet() {
                         modifier = Modifier.size(16.dp)
                     )
                     Text(
-                        text = "2",
+                        text = "${tweet.likeCount}",
                         color = Color(0xff8E9599),
                         style = TextStyle(
                             fontSize = 12.sp,
@@ -139,7 +137,7 @@ fun Tweet() {
                         modifier = Modifier.size(16.dp)
                     )
                     Text(
-                        text = "2",
+                        text = "${tweet.commentCount}",
                         color = Color(0xff8E9599),
                         style = TextStyle(
                             fontSize = 12.sp,
@@ -181,11 +179,11 @@ fun Tweet() {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "APPLY",
+                        text = "Apply",
                         color = Color.White,
                         style = TextStyle(
                             fontSize = 10.sp,
-                            fontWeight = FontWeight.SemiBold
+                            fontWeight = FontWeight.Bold
                         ),
                         modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
                     )
