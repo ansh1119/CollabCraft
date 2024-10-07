@@ -8,6 +8,12 @@
 - **Real-time Interaction**: View and interact with open posts in real-time.
 - **Manage Applications**: Users can track and manage the applications they receive for their posts.
 
+### Tweets
+![Create a Post](./assets/15.png)
+
+### Tweets
+![Apply for a Role](./assets/3.png)
+
 ## Tech Stack
 ### Frontend
 - **Jetpack Compose**: Modern Android UI toolkit for building native interfaces quickly and efficiently.
