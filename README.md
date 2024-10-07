@@ -42,9 +42,10 @@
 3. Build and run the app on your preferred device or emulator.
 
 ## API Endpoints
-- **POST** `/api/posts` - Create a new post.
-- **GET** `/api/posts` - Fetch all open posts.
-- **POST** `/api/apply/{postId}` - Apply for a specific post.
+- **POST** `/tweets/new-tweet` - Create a new post.
+- **GET** `/tweets/all-tweets` - Fetch all tweets.
+- **GET** `/tweets/{domain}` - Fetch all tweets for a specific domain for example:- android dev, Web Dev etc.
+- **POST** `/api/apply/{objectId}` - Apply for a specific post.
 
 > You can find a detailed list of all the API endpoints [here](API_DOCS.md).
 
