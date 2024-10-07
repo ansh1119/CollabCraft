@@ -12,7 +12,7 @@
 ![Create a Post](./assets/15.png)
 
 ### Tweets
-![Apply for a Role](./assets/3.png)
+![Login(Spring Security)](./assets/3.png)
 
 ## Tech Stack
 ### Frontend
