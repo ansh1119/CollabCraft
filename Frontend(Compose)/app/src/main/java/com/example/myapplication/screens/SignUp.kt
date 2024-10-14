@@ -1,30 +1,44 @@
-package com.example.myapplication.screens
-
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.myapplication.components.InputField
 
 @Composable
-fun SignUpScreen(onNavigateToSignUp2: () -> Unit) {
+fun SignUp(navController: NavController) {
     var username by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var year by remember { mutableStateOf("") }
-    var branch by remember { mutableStateOf("") }
-    var firstDomain by remember { mutableStateOf("") }
-    var secondDomain by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var cnfPass by remember { mutableStateOf("") }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -34,18 +48,18 @@ fun SignUpScreen(onNavigateToSignUp2: () -> Unit) {
             Column(modifier = Modifier.fillMaxSize()) {
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    text = "Create Your Account.",
+                    text = "One last step to set \nup your account.",
                     color = Color.White,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 20.dp, top = 40.dp)
+                    modifier = Modifier.padding(start = 20.dp, top = 80.dp)
                 )
 
                 Card(
                     colors = CardDefaults.cardColors(containerColor = Color(0xff314957)),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 20.dp, end = 20.dp, top = 40.dp)
+                        .padding(start = 20.dp, end = 20.dp, top = 60.dp)
                 ) {
                     Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp)) {
                         InputField(
@@ -53,26 +67,38 @@ fun SignUpScreen(onNavigateToSignUp2: () -> Unit) {
                             value = username,
                             onValueChange = { username = it })
                         InputField(
-                            label = "College Email ID",
-                            value = email,
-                            onValueChange = { email = it })
-                        InputField(label = "Year", value = year, onValueChange = { year = it })
+                            label = "Enter Your Password",
+                            value = password,
+                            onValueChange = { password = it })
                         InputField(
-                            label = "Branch",
-                            value = branch,
-                            onValueChange = { branch = it })
-                        InputField(
-                            label = "First Domain",
-                            value = firstDomain,
-                            onValueChange = { firstDomain = it })
-                        InputField(
-                            label = "Second Domain (Optional)",
-                            value = secondDomain,
-                            onValueChange = { secondDomain = it })
+                            label = "Confirm Your Password",
+                            value = cnfPass,
+                            onValueChange = { cnfPass = it })
+
+                        Button(
+                            modifier = Modifier
+                                .padding(top = 10.dp)
+                                .fillMaxWidth(.8f)
+                                .align(Alignment.CenterHorizontally)
+                                .shadow(
+                                    elevation = 10.dp,
+                                    spotColor = Color(0xFF00E0FF),
+                                    ambientColor = Color.White,
+                                    shape = RoundedCornerShape(28.dp)
+                                ),
+                            shape = RoundedCornerShape(28.dp),
+                            colors = ButtonDefaults.buttonColors(Color(0xFF00E0FF)),
+                            onClick = { }
+                        ) {
+                            Text(text = "Sign In")
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
                     }
                 }
             }
 
+            // Left arrow on SignUp2 screen (non-functional)
             IconButton(
                 onClick = {},
                 modifier = Modifier
@@ -90,9 +116,9 @@ fun SignUpScreen(onNavigateToSignUp2: () -> Unit) {
                 )
             }
 
-            // Right arrow on SignUp screen (non-functional)
+            // Right arrow on SignUp2 screen (non-functional)
             IconButton(
-                onClick = {},
+                onClick = {navController.navigate(route = "sign-up-2/$username/$password")},
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
                     .padding(end = 6.dp)
@@ -110,12 +136,3 @@ fun SignUpScreen(onNavigateToSignUp2: () -> Unit) {
         }
     }
 }
-
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewSignUpScreen() {
-    SignUpScreen(onNavigateToSignUp2 = {})
-}
-
-

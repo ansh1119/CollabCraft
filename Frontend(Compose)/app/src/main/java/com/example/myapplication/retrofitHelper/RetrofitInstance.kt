@@ -1,17 +1,23 @@
 package com.example.myapplication.retrofitHelper
 
-import TweetApiService
+import TweetApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-    private const val BASE_URL = "https://mocki.io"
+    private const val BASE_URL = "https://4757-43-230-39-43.ngrok-free.app/"
 
-    val api: TweetApiService by lazy {
+
+
+
+    private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(TweetApiService::class.java)
+    }
+
+    val api: TweetApi by lazy {
+        retrofit.create(TweetApi::class.java)
     }
 }
