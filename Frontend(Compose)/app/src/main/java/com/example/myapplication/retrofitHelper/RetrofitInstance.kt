@@ -1,12 +1,12 @@
 package com.example.myapplication.retrofitHelper
 
 import TweetApi
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitInstance {
-    private const val BASE_URL = "https://4757-43-230-39-43.ngrok-free.app/"
-
+class RetrofitInstance {
+    private val BASE_URL = "https://4757-43-230-39-43.ngrok-free.app/"
 
 
 
@@ -17,7 +17,13 @@ object RetrofitInstance {
             .build()
     }
 
-    val api: TweetApi by lazy {
-        retrofit.create(TweetApi::class.java)
+    fun providesOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient{
+        return OkHttpClient.Builder()  // Use OkHttpClient.Builder() correctly
+            .addInterceptor(authInterceptor)  // Add the interceptor
+            .build()  // Build the OkHttpClient instance
+    }
+
+    fun providesUserAPI(): TweetApi{
+        return retrofit.create(TweetApi::class.java)
     }
 }

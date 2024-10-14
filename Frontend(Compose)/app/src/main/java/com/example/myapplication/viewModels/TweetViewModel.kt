@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.Repository.ApiRepository
 import com.example.myapplication.models.Tweet
+import com.example.myapplication.models.TweetResponse
 import com.example.myapplication.retrofitHelper.RetrofitInstance
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +14,7 @@ import retrofit2.HttpException
 
 class TweetViewModel(private var repository:ApiRepository) : ViewModel() {
 //    private val _tweets = MutableStateFlow<List<Tweet>>(emptyList())
-val tweets: StateFlow<List<Tweet>> get() = repository.tweets
+val tweets: StateFlow<List<TweetResponse>> get() = repository.tweets
 
     init {
         Log.d("I AM HERE","working good")

@@ -30,10 +30,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
 import com.example.myapplication.models.Tweet
+import com.example.myapplication.models.TweetResponse
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun Tweet(tweet: Tweet) {
+fun Tweet(tweet: TweetResponse) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -53,18 +54,18 @@ fun Tweet(tweet: Tweet) {
                 verticalAlignment = Alignment.CenterVertically // Center all elements vertically
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    GlideImage(
-                        imageModel = { tweet.imageUrl },
-                        modifier = Modifier
-                            .size(36.dp)
-                            .clip(CircleShape)
-                            .border(2.dp, Color.Gray, CircleShape)
-                    )
+//                    GlideImage(
+//                        imageModel = { tweet.imageUrl },
+//                        modifier = Modifier
+//                            .size(36.dp)
+//                            .clip(CircleShape)
+//                            .border(2.dp, Color.Gray, CircleShape)
+//                    )
 
                     Spacer(modifier = Modifier.width(10.dp))
 
                     Text(
-                        text = "@${tweet.username}", color = Color.White, style = TextStyle(
+                        text = "@${tweet.author}", color = Color.White, style = TextStyle(
                             fontSize = 13.sp, fontWeight = FontWeight.SemiBold
                         )
                     )
@@ -72,7 +73,7 @@ fun Tweet(tweet: Tweet) {
                     Spacer(modifier = Modifier.width(8.dp))
 
                     Text(
-                        text = "${tweet.hoursAgo} hr. ago",
+                        text = "${tweet.time} ",
                         color = Color(0xff8E9599),
                         style = TextStyle(
                             fontSize = 8.sp, fontWeight = FontWeight.SemiBold
@@ -115,15 +116,7 @@ fun Tweet(tweet: Tweet) {
                         contentDescription = "like",
                         modifier = Modifier.size(16.dp)
                     )
-                    Text(
-                        text = "${tweet.likeCount}",
-                        color = Color(0xff8E9599),
-                        style = TextStyle(
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.SemiBold
-                        ),
-                        modifier = Modifier.padding(start = 5.dp)
-                    )
+
                 }
 
                 // Group 2: Comments
@@ -136,15 +129,7 @@ fun Tweet(tweet: Tweet) {
                         contentDescription = "comments",
                         modifier = Modifier.size(16.dp)
                     )
-                    Text(
-                        text = "${tweet.commentCount}",
-                        color = Color(0xff8E9599),
-                        style = TextStyle(
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.SemiBold
-                        ),
-                        modifier = Modifier.padding(start = 5.dp)
-                    )
+                    
                 }
 
                 // Group 3: Repost
