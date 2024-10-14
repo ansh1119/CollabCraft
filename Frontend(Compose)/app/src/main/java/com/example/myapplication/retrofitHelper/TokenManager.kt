@@ -2,7 +2,7 @@ package com.example.myapplication.retrofitHelper
 
 import android.content.Context
 
-class TokenManager(context: AuthInterceptor) {
+class TokenManager(context: Context) {
 
     private var prefs=context.getSharedPreferences("PREFS_TOKEN_FILE", Context.MODE_PRIVATE)
 
