@@ -1,9 +1,12 @@
 package com.example.collabcraft.Entities;
 
 
+import com.example.collabcraft.ObjectIdSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -16,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Tweets {
 
+    @JsonSerialize(using = ObjectIdSerializer.class)
     @Id
     private ObjectId id;
     @NonNull
@@ -23,7 +27,7 @@ public class Tweets {
     private String author;
     private String domain;
     private LocalDate time;
-    private List<Users> applications=new ArrayList<>();
+    private List<String> applications=new ArrayList<>();
 
 
 
@@ -40,12 +44,12 @@ public class Tweets {
         this.id = id;
     }
 
-    public void setApplications(List<Users> applications) {
-        this.applications = applications;
+    public List<String> getApplications() {
+        return applications;
     }
 
-    public List<Users> getApplications() {
-        return applications;
+    public void setApplications(List<String> applications) {
+        this.applications = applications;
     }
 
     public String getDomain() {

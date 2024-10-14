@@ -36,6 +36,12 @@ public class TweetService {
         userRepository.save(user);
     }
 
+    public void createApplication(Tweets tweet, String username){
+        Users user= userRepository.findByUsername(username);
+        tweet.getApplications().add(username);
+        tweetsRepository.save(tweet);
+    }
+
     public List<Tweets> getTweetsByDomain(String domain){
         return tweetsRepository.findByDomain(domain);
     }

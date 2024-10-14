@@ -5,6 +5,7 @@ import com.example.collabcraft.Entities.Tweets;
 import com.example.collabcraft.Entities.Users;
 import com.example.collabcraft.Services.TweetService;
 import com.example.collabcraft.Services.UserService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,12 @@ public class UserController {
         String username=authentication.getName();
         userService.deleteByUsername(username);
         return ResponseEntity.status(HttpStatus.OK).body("user Deleted Successfully");
+    }
+
+    @GetMapping("/get-user")
+    public ResponseEntity<Users> getUserByObjectId(@RequestBody ObjectId id){
+        System.out.println(userService.getUserByUserId(id));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserByUserId(id));
     }
 
 

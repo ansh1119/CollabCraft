@@ -1,6 +1,7 @@
 package com.example.collabcraft.Controllers;
 
 
+import com.example.collabcraft.Entities.UserAuth;
 import com.example.collabcraft.Entities.Users;
 import com.example.collabcraft.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,11 @@ public class PublicController {
     public ResponseEntity<String> createUser(@RequestBody Users user){
         userService.newUser(user);
         return ResponseEntity.status(HttpStatus.OK).body("Sign Up Successful");
+    }
+
+    @PostMapping("/login")
+    public String verifyUser(@RequestBody Users user){
+        System.out.println("i am here");
+        return userService.verify(user);
     }
 }

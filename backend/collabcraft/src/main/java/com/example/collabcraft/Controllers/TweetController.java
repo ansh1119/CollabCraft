@@ -5,6 +5,8 @@ import com.example.collabcraft.Entities.Tweets;
 import com.example.collabcraft.Entities.Users;
 import com.example.collabcraft.Services.TweetService;
 import com.example.collabcraft.Services.UserService;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.Response;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpResponse;
@@ -46,6 +49,7 @@ public class TweetController {
         return ResponseEntity.status(HttpStatus.OK).body("tweet created successfully");
     }
 
+
     @GetMapping("/all-tweets")
     public ResponseEntity<List<Tweets>> getAllTweets(){
         return ResponseEntity.status(HttpStatus.OK).body(tweetService.getAllTweets());
@@ -60,13 +64,16 @@ public class TweetController {
     public ResponseEntity<String> apply(@PathVariable ObjectId objectId){
         Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
         String username=authentication.getName();
-        Users user=userService.findByUsername(username);
         Tweets tweet= tweetService.getTweetById(objectId);
         if(tweet!=null){
-           tweet.getApplications().add(user);
-           tweetService.updateTweet(tweet);
+               tweetService.createApplication(tweet,username);
            return ResponseEntity.status(HttpStatus.OK).body("application successful");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The Tweet Does Not Exist");
+    }
+
+    @GetMapping("/get-tweet-by-id")
+    public Tweets getTweetById(@RequestBody ObjectId id){
+        return tweetService.getTweetById(id);
     }
 }
