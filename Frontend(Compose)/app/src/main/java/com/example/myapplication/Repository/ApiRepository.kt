@@ -22,8 +22,4 @@ class ApiRepository(private val tweetApi: TweetApi) {
     }
 
 
-//
-    suspend fun createUser(user:User): Response<String> {
-        return tweetApi.createUser(user)
-    }
 }

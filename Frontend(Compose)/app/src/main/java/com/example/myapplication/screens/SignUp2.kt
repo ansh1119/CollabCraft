@@ -20,13 +20,13 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.myapplication.Repository.ApiRepository
+import com.example.myapplication.Repository.PublicRepository
 import com.example.myapplication.components.InputField
 import com.example.myapplication.models.User
 import com.example.myapplication.retrofitHelper.RetrofitInstance
-import com.example.myapplication.viewModels.TweetViewModelFactory
+import com.example.myapplication.viewModels.PublicViewModel
 import com.example.myapplication.viewModels.UserViewModel
-import com.example.myapplication.viewModels.UserViewModelFactory
-import com.example.myapplication.viewmodel.TweetViewModel
+import com.example.myapplication.viewModels.PublicViewModelFactory
 
 @Composable
 fun SignUp2(navController: NavController, username:String, password:String) {
@@ -37,8 +37,14 @@ fun SignUp2(navController: NavController, username:String, password:String) {
     var firstDomain by remember { mutableStateOf("") }
     var secondDomain by remember { mutableStateOf("") }
 
-    val userViewModel: UserViewModel = viewModel(
-        factory = UserViewModelFactory(ApiRepository(RetrofitInstance.api))
+//    val userViewModel: UserViewModel = viewModel(
+//        factory = PublicViewModelFactory(ApiRepository(RetrofitInstance.api))
+//    )
+
+    val retrofitInstance:RetrofitInstance= RetrofitInstance()
+
+    val publicViewModel:PublicViewModel= viewModel(
+        factory = PublicViewModelFactory(PublicRepository(retrofitInstance.providesPublicApiService()))
     )
 
 
@@ -109,11 +115,10 @@ fun SignUp2(navController: NavController, username:String, password:String) {
             // Right arrow on SignUp screen (non-functional)
             IconButton(
                 onClick = {
-                    var user:User=User(branch,email,firstDomain,secondDomain,name,password,username,year)
+                    var user=User(branch,email,firstDomain,secondDomain,name,password,username,year)
                     Log.d("USER CREATED", user.toString())
-                    var response=userViewModel.authentication(user)
-                    navController.navigate("homescreen")
-                    Log.d("CHAL GYI API", response.toString())
+                    publicViewModel.createUser(user)
+                    navController.navigate("login")
                 },
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
