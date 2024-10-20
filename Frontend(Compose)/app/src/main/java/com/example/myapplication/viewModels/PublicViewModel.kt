@@ -5,43 +5,48 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.Repository.ApiRepository
 import com.example.myapplication.Repository.PublicRepository
+import com.example.myapplication.models.LoginRequest
 import com.example.myapplication.models.User
 import com.example.myapplication.retrofitHelper.RetrofitInstance
+import com.example.myapplication.retrofitHelper.TokenManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import retrofit2.Response
+import kotlin.math.log
 
-class PublicViewModel(private var repository: PublicRepository):ViewModel(){
-    var emptyUser:User=User("","","","","","","", 0.toString())
+class PublicViewModel(private val repository: PublicRepository) : ViewModel() {
 
-
-    fun createUser(user:User) {
+    fun login(
+        loginRequest: LoginRequest,
+        tokenManager: TokenManager,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
         viewModelScope.launch {
             try {
-                val response = repository.createUser(user)
-                Log.d("CREATION",response.toString())
-            } catch (e: HttpException) {
-                Log.w("CREATION HTTP EXCEPTION", e.toString())
+                val token = repository.login(loginRequest)
+                if (token != null) {
+                    tokenManager.saveToken(token) // Save token
+                    onSuccess()
+                } else {
+                    onError("Invalid username or password.")
+                }
             } catch (e: Exception) {
-                Log.w("CREATION EXCEPTION", e.toString())
+                onError(e.message ?: "An unexpected error occurred.")
             }
         }
     }
 
-    private fun login(user:User){
+    fun createUser(user: User, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             try {
-                val response = repository.login(user)
-                Log.d("CREATION",response.toString())
-            } catch (e: HttpException) {
-                Log.w("CREATION HTTP EXCEPTION", e.toString())
+                repository.createUser(user)
+                onSuccess()
             } catch (e: Exception) {
-                Log.w("CREATION EXCEPTION", e.toString())
+                onError(e.message ?: "Failed to create user.")
             }
         }
     }
-
-
 }

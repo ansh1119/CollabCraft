@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInstance(private val token: String? = null) {
 
-    private val BASE_URL = "https://5384-103-72-7-27.ngrok-free.app/"
+    private val BASE_URL = "https://dc17-103-72-7-27.ngrok-free.app/"
 
     // Provide public Retrofit instance (without AuthInterceptor)
     fun providesPublicRetrofit(): Retrofit {

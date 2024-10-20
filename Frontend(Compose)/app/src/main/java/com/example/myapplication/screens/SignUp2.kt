@@ -19,13 +19,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.myapplication.Repository.ApiRepository
 import com.example.myapplication.Repository.PublicRepository
 import com.example.myapplication.components.InputField
 import com.example.myapplication.models.User
 import com.example.myapplication.retrofitHelper.RetrofitInstance
 import com.example.myapplication.viewModels.PublicViewModel
-import com.example.myapplication.viewModels.UserViewModel
 import com.example.myapplication.viewModels.PublicViewModelFactory
 
 @Composable
@@ -44,7 +42,9 @@ fun SignUp2(navController: NavController, username:String, password:String) {
     val retrofitInstance:RetrofitInstance= RetrofitInstance()
 
     val publicViewModel:PublicViewModel= viewModel(
-        factory = PublicViewModelFactory(PublicRepository(retrofitInstance.providesPublicApiService()))
+        factory = PublicViewModelFactory(
+            PublicRepository(retrofitInstance.providesPublicApiService())
+        )
     )
 
 
@@ -115,10 +115,20 @@ fun SignUp2(navController: NavController, username:String, password:String) {
             // Right arrow on SignUp screen (non-functional)
             IconButton(
                 onClick = {
-                    var user=User(branch,email,firstDomain,secondDomain,name,password,username,year)
+                    val user = User(branch, email, firstDomain, secondDomain, name, password, username, year)
                     Log.d("USER CREATED", user.toString())
-                    publicViewModel.createUser(user)
-                    navController.navigate("login")
+
+                    publicViewModel.createUser(
+                        user = user,
+                        onSuccess = {
+                            Log.d("SIGN UP", "User created successfully!")
+                            navController.navigate("login") // Navigate only after success
+                        },
+                        onError = { error ->
+                            Log.e("SIGN UP", "Failed to create user: $error")
+                            // Show an error message to the user (e.g., Snackbar or Toast)
+                        }
+                    )
                 },
                 modifier = Modifier
                     .align(Alignment.CenterEnd)

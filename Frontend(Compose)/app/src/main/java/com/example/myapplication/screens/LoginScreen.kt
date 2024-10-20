@@ -33,18 +33,36 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
+import com.example.myapplication.Repository.PublicRepository
+import com.example.myapplication.models.LoginRequest
+import com.example.myapplication.retrofitHelper.RetrofitInstance
+import com.example.myapplication.retrofitHelper.TokenManager
+import com.example.myapplication.viewModels.PublicViewModel
+import com.example.myapplication.viewModels.PublicViewModelFactory
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavHostController) {
+
+    val context = LocalContext.current
+    val tokenManager = TokenManager(context)
+
+
+    val publicViewModel: PublicViewModel = viewModel(
+        factory = PublicViewModelFactory(PublicRepository(RetrofitInstance().providesPublicApiService()))
+    )
+
     var username by remember {
         mutableStateOf("")
     }
@@ -110,7 +128,7 @@ fun LoginScreen(navController: NavHostController) {
                         OutlinedTextField(
                             modifier = Modifier
                                 .fillMaxWidth(.8f)
-                                .height(30.dp)
+                                .height(60.dp)
                                 .align(Alignment.CenterHorizontally),
                             value = username,
                             onValueChange = { username = it },
@@ -132,7 +150,7 @@ fun LoginScreen(navController: NavHostController) {
                         OutlinedTextField(
                             modifier = Modifier
                                 .fillMaxWidth(.8f)
-                                .height(30.dp)
+                                .height(60.dp)
                                 .align(Alignment.CenterHorizontally),
                             value = password,
                             onValueChange = { password = it },
@@ -178,7 +196,17 @@ fun LoginScreen(navController: NavHostController) {
                             ),
                             shape = RoundedCornerShape(28.dp),
                             colors = ButtonDefaults.buttonColors(Color(0xFF00E0FF)),
-                            onClick = { /*TODO*/ }) {
+                            onClick = { publicViewModel.login(
+                                LoginRequest(username,password),
+                                onSuccess = {
+                                    navController.navigate("homescreen")
+                                },
+                                tokenManager = tokenManager,
+                                onError = { message ->
+                                    // Display an error message (e.g., using a Snackbar)
+                                    println(message)
+                                }
+                            ) }) {
                             Text(text = "Sign In")
                         }
                         Spacer(modifier = Modifier.height(20.dp))
@@ -239,4 +267,10 @@ fun LoginScreen(navController: NavHostController) {
         }
     }
 
+}
+
+@Composable
+@Preview
+fun LoginScreenPreview(){
+    LoginScreen(navController = rememberNavController())
 }
