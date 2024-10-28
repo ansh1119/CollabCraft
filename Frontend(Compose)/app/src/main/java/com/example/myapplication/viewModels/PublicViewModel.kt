@@ -26,18 +26,26 @@ class PublicViewModel(private val repository: PublicRepository) : ViewModel() {
     ) {
         viewModelScope.launch {
             try {
-                val token = repository.login(loginRequest)
+                val token: String? = repository.login(loginRequest) // Now matches the repository return type
+
                 if (token != null) {
-                    tokenManager.saveToken(token) // Save token
-                    onSuccess()
+                    Log.d("TOKEN", token) // Log the token
+                    tokenManager.saveToken(token) // Save the token using TokenManager
+                    onSuccess() // Call success callback
                 } else {
-                    onError("Invalid username or password.")
+                    onError("Invalid username or password.") // Handle invalid login
                 }
+            } catch (e: HttpException) {
+                Log.e("HTTP_EXCEPTION", "HttpException: ${e.response()?.errorBody()?.string()}")
+                onError("Server error: ${e.message}")
             } catch (e: Exception) {
+                Log.e("EXCEPTION", "Login error: ${e.localizedMessage}")
                 onError(e.message ?: "An unexpected error occurred.")
             }
         }
     }
+
+
 
     fun createUser(user: User, onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {

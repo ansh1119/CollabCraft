@@ -3,19 +3,26 @@ package com.example.myapplication.retrofitHelper
 import TweetApi
 import android.content.Context
 import com.example.myapplication.service.PublicApiService
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInstance(private val token: String? = null) {
 
-    private val BASE_URL = "https://dc17-103-72-7-27.ngrok-free.app/"
+    private val BASE_URL = "https://42ea-2401-4900-1c3c-3c62-dcfb-9ec4-94cf-4cd.ngrok-free.app/"
+
+
+    val gson = GsonBuilder()
+        .setLenient()
+        .create()
 
     // Provide public Retrofit instance (without AuthInterceptor)
     fun providesPublicRetrofit(): Retrofit {
+
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 
