@@ -1,0 +1,1791 @@
+[33mcommit d7815978d49d4fbdca56fba74224216ceaa0ac28[m
+Author: ansh <anshsingh1119@gmail.com>
+Date:   Sun Oct 20 14:27:43 2024 +0530
+
+    sign up completed api integration done, login needs to be done
+
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mnew file mode 100644[m
+[1mindex 0000000..549e00a[m
+[1m--- /dev/null[m
+[1m+++ b/.gitignore[m
+[36m@@ -0,0 +1,33 @@[m
+[32m+[m[32mHELP.md[m
+[32m+[m[32mtarget/[m
+[32m+[m[32m!.mvn/wrapper/maven-wrapper.jar[m
+[32m+[m[32m!**/src/main/**/target/[m
+[32m+[m[32m!**/src/test/**/target/[m
+[32m+[m
+[32m+[m[32m### STS ###[m
+[32m+[m[32m.apt_generated[m
+[32m+[m[32m.classpath[m
+[32m+[m[32m.factorypath[m
+[32m+[m[32m.project[m
+[32m+[m[32m.settings[m
+[32m+[m[32m.springBeans[m
+[32m+[m[32m.sts4-cache[m
+[32m+[m
+[32m+[m[32m### IntelliJ IDEA ###[m
+[32m+[m[32m.idea[m
+[32m+[m[32m*.iws[m
+[32m+[m[32m*.iml[m
+[32m+[m[32m*.ipr[m
+[32m+[m
+[32m+[m[32m### NetBeans ###[m
+[32m+[m[32m/nbproject/private/[m
+[32m+[m[32m/nbbuild/[m
+[32m+[m[32m/dist/[m
+[32m+[m[32m/nbdist/[m
+[32m+[m[32m/.nb-gradle/[m
+[32m+[m[32mbuild/[m
+[32m+[m[32m!**/src/main/**/build/[m
+[32m+[m[32m!**/src/test/**/build/[m
+[32m+[m
+[32m+[m[32m### VS Code ###[m
+[32m+[m[32m.vscode/[m
+[1mdiff --git a/.mvn/wrapper/maven-wrapper.properties b/.mvn/wrapper/maven-wrapper.properties[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8f96f52[m
+[1m--- /dev/null[m
+[1m+++ b/.mvn/wrapper/maven-wrapper.properties[m
+[36m@@ -0,0 +1,19 @@[m
+[32m+[m[32m# Licensed to the Apache Software Foundation (ASF) under one[m
+[32m+[m[32m# or more contributor license agreements.  See the NOTICE file[m
+[32m+[m[32m# distributed with this work for additional information[m
+[32m+[m[32m# regarding copyright ownership.  The ASF licenses this file[m
+[32m+[m[32m# to you under the Apache License, Version 2.0 (the[m
+[32m+[m[32m# "License"); you may not use this file except in compliance[m
+[32m+[m[32m# with the License.  You may obtain a copy of the License at[m
+[32m+[m[32m#[m
+[32m+[m[32m#   https://www.apache.org/licenses/LICENSE-2.0[m
+[32m+[m[32m#[m
+[32m+[m[32m# Unless required by applicable law or agreed to in writing,[m
+[32m+[m[32m# software distributed under the License is distributed on an[m
+[32m+[m[32m# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY[m
+[32m+[m[32m# KIND, either express or implied.  See the License for the[m
+[32m+[m[32m# specific language governing permissions and limitations[m
+[32m+[m[32m# under the License.[m
+[32m+[m[32mwrapperVersion=3.3.2[m
+[32m+[m[32mdistributionType=only-script[m
+[32m+[m[32mdistributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.7/apache-maven-3.9.7-bin.zip[m
+[1mdiff --git a/Frontend(Compose)/.idea/deploymentTargetSelector.xml b/Frontend(Compose)/.idea/deploymentTargetSelector.xml[m
+[1mindex 4269571..777bbb2 100644[m
+[1m--- a/Frontend(Compose)/.idea/deploymentTargetSelector.xml[m
+[1m+++ b/Frontend(Compose)/.idea/deploymentTargetSelector.xml[m
+[36m@@ -4,10 +4,10 @@[m
+     <selectionStates>[m
+       <SelectionState runConfigName="app">[m
+         <option name="selectionMode" value="DROPDOWN" />[m
+[31m-        <DropdownSelection timestamp="2024-09-28T19:09:18.045010300Z">[m
+[32m+[m[32m        <DropdownSelection timestamp="2024-10-20T08:03:36.827637200Z">[m
+           <Target type="DEFAULT_BOOT">[m
+             <handle>[m
+[31m-              <DeviceId pluginId="PhysicalDevice" identifier="serial=800a3314" />[m
+[32m+[m[32m              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\anshs\.android\avd\new_phone.avd" />[m
+             </handle>[m
+           </Target>[m
+         </DropdownSelection>[m
+[1mdiff --git a/Frontend(Compose)/.idea/other.xml b/Frontend(Compose)/.idea/other.xml[m
+[1mindex a76f118..56676a7 100644[m
+[1m--- a/Frontend(Compose)/.idea/other.xml[m
+[1m+++ b/Frontend(Compose)/.idea/other.xml[m
+[36m@@ -256,6 +256,17 @@[m
+           <option name="screenX" value="1812" />[m
+           <option name="screenY" value="2176" />[m
+         </PersistentDeviceSelectionData>[m
+[32m+[m[32m        <PersistentDeviceSelectionData>[m
+[32m+[m[32m          <option name="api" value="34" />[m
+[32m+[m[32m          <option name="brand" value="samsung" />[m
+[32m+[m[32m          <option name="codename" value="q6q" />[m
+[32m+[m[32m          <option name="id" value="q6q" />[m
+[32m+[m[32m          <option name="manufacturer" value="Samsung" />[m
+[32m+[m[32m          <option name="name" value="SM-F956B" />[m
+[32m+[m[32m          <option name="screenDensity" value="420" />[m
+[32m+[m[32m          <option name="screenX" value="1856" />[m
+[32m+[m[32m          <option name="screenY" value="2160" />[m
+[32m+[m[32m        </PersistentDeviceSelectionData>[m
+         <PersistentDeviceSelectionData>[m
+           <option name="api" value="30" />[m
+           <option name="brand" value="google" />[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/App.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/App.kt[m
+[1mindex bac94cf..4f0d455 100644[m
+[1m--- a/Frontend(Compose)/app/src/main/java/com/example/myapplication/App.kt[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/App.kt[m
+[36m@@ -9,6 +9,7 @@[m [mimport androidx.navigation.compose.composable[m
+ import androidx.navigation.compose.rememberNavController[m
+ import androidx.navigation.navArgument[m
+ import com.example.myapplication.screens.HomeScreen[m
+[32m+[m[32mimport com.example.myapplication.screens.LoginScreen[m
+ import com.example.myapplication.screens.SignUp2[m
+ [m
+ @Composable[m
+[36m@@ -39,5 +40,9 @@[m [mfun App() {[m
+         composable(route="homescreen") {[m
+             HomeScreen(navController)[m
+         }[m
+[32m+[m
+[32m+[m[32m        composable(route="login") {[m
+[32m+[m[32m            LoginScreen(navController)[m
+[32m+[m[32m        }[m
+     }[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/Repository/ApiRepository.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/Repository/ApiRepository.kt[m
+[1mindex f6afcfa..b8e92da 100644[m
+[1m--- a/Frontend(Compose)/app/src/main/java/com/example/myapplication/Repository/ApiRepository.kt[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/Repository/ApiRepository.kt[m
+[36m@@ -22,8 +22,4 @@[m [mclass ApiRepository(private val tweetApi: TweetApi) {[m
+     }[m
+ [m
+ [m
+[31m-//[m
+[31m-    suspend fun createUser(user:User): Response<String> {[m
+[31m-        return tweetApi.createUser(user)[m
+[31m-    }[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/Repository/PublicRepository.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/Repository/PublicRepository.kt[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a01f61c[m
+[1m--- /dev/null[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/Repository/PublicRepository.kt[m
+[36m@@ -0,0 +1,20 @@[m
+[32m+[m[32mpackage com.example.myapplication.Repository[m
+[32m+[m
+[32m+[m[32mimport android.util.Log[m
+[32m+[m[32mimport com.example.myapplication.models.User[m
+[32m+[m[32mimport com.example.myapplication.service.PublicApiService[m
+[32m+[m[32mimport retrofit2.Response[m
+[32m+[m
+[32m+[m[32mclass PublicRepository(private val publicApiService: PublicApiService) {[m
+[32m+[m
+[32m+[m[32m    suspend fun createUser(user: User):Response<String>{[m
+[32m+[m[32m        val response=publicApiService.createUser(user)[m
+[32m+[m[32m        return response[m
+[32m+[m[32m        Log.d("CREATED",response.toString())[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    suspend fun login(user:User){[m
+[32m+[m[32m        val response=publicApiService.login(user)[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/retrofitHelper/AuthInterceptor.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/retrofitHelper/AuthInterceptor.kt[m
+[1mindex bab96eb..deee98f 100644[m
+[1m--- a/Frontend(Compose)/app/src/main/java/com/example/myapplication/retrofitHelper/AuthInterceptor.kt[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/retrofitHelper/AuthInterceptor.kt[m
+[36m@@ -1,18 +1,22 @@[m
+ package com.example.myapplication.retrofitHelper[m
+ [m
+[32m+[m[32mimport android.content.Context[m
+ import okhttp3.Interceptor[m
+ import okhttp3.Response[m
+ [m
+[31m-class AuthInterceptor:Interceptor {[m
+ [m
+[31m-    var tokenManager: TokenManager= TokenManager(this)[m
+[32m+[m[32mclass AuthInterceptor(private val token: String, context:Context) : Interceptor {[m
+[32m+[m
+[32m+[m[32m    var tokenManager: TokenManager= TokenManager(context)[m
+[32m+[m
+ [m
+     override fun intercept(chain: Interceptor.Chain): Response {[m
+[31m-        val request=chain.request().newBuilder()[m
+[32m+[m[32m        val request = chain.request().newBuilder()[m
+[32m+[m
+         val token=tokenManager.getToken()[m
+[31m-        if (token != null) {[m
+[31m-            request.addHeader("Authorization","Bearer $token")[m
+[31m-        }[m
+[32m+[m[32m        request.addHeader("Authorization","Bearer $token")[m
+[32m+[m
+[32m+[m
+         return chain.proceed(request.build())[m
+     }[m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32m}[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/retrofitHelper/RetrofitInstance.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/retrofitHelper/RetrofitInstance.kt[m
+[1mindex 4b4cc11..7e052f4 100644[m
+[1m--- a/Frontend(Compose)/app/src/main/java/com/example/myapplication/retrofitHelper/RetrofitInstance.kt[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/retrofitHelper/RetrofitInstance.kt[m
+[36m@@ -1,29 +1,56 @@[m
+ package com.example.myapplication.retrofitHelper[m
+ [m
+ import TweetApi[m
+[32m+[m[32mimport android.content.Context[m
+[32m+[m[32mimport com.example.myapplication.service.PublicApiService[m
+ import okhttp3.OkHttpClient[m
+ import retrofit2.Retrofit[m
+ import retrofit2.converter.gson.GsonConverterFactory[m
+ [m
+[31m-class RetrofitInstance {[m
+[31m-    private val BASE_URL = "https://4757-43-230-39-43.ngrok-free.app/"[m
+[32m+[m[32mclass RetrofitInstance(private val token: String? = null) {[m
+ [m
+[32m+[m[32m    private val BASE_URL = "https://5384-103-72-7-27.ngrok-free.app/"[m
+ [m
+[32m+[m[32m    // Provide public Retrofit instance (without AuthInterceptor)[m
+[32m+[m[32m    fun providesPublicRetrofit(): Retrofit {[m
+[32m+[m[32m        return Retrofit.Builder()[m
+[32m+[m[32m            .baseUrl(BASE_URL)[m
+[32m+[m[32m            .addConverterFactory(GsonConverterFactory.create())[m
+[32m+[m[32m            .build()[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // Provide Retrofit instance with authentication, if token exists[m
+[32m+[m[32m    private fun providesAuthInterceptor(context: Context): AuthInterceptor {[m
+[32m+[m[32m        return AuthInterceptor(token ?: "", context)[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    private fun providesOkHttpClient(context: Context): OkHttpClient {[m
+[32m+[m[32m        val okHttpBuilder = OkHttpClient.Builder()[m
+[32m+[m
+[32m+[m[32m        // Only add the AuthInterceptor if a token is provided[m
+[32m+[m[32m        token?.let {[m
+[32m+[m[32m            okHttpBuilder.addInterceptor(providesAuthInterceptor(context))[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        return okHttpBuilder.build()[m
+[32m+[m[32m    }[m
+ [m
+[31m-    private val retrofit: Retrofit by lazy {[m
+[31m-        Retrofit.Builder()[m
+[32m+[m[32m    // Retrofit instance with OkHttpClient (used for authenticated requests)[m
+[32m+[m[32m    fun providesAuthRetrofit(context: Context): Retrofit {[m
+[32m+[m[32m        return Retrofit.Builder()[m
+             .baseUrl(BASE_URL)[m
+             .addConverterFactory(GsonConverterFactory.create())[m
+[32m+[m[32m            .client(providesOkHttpClient(context))[m
+             .build()[m
+     }[m
+ [m
+[31m-    fun providesOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient{[m
+[31m-        return OkHttpClient.Builder()  // Use OkHttpClient.Builder() correctly[m
+[31m-            .addInterceptor(authInterceptor)  // Add the interceptor[m
+[31m-            .build()  // Build the OkHttpClient instance[m
+[32m+[m[32m    // Public API service (no authentication required)[m
+[32m+[m[32m    fun providesPublicApiService(): PublicApiService {[m
+[32m+[m[32m        return providesPublicRetrofit().create(PublicApiService::class.java)[m
+     }[m
+ [m
+[31m-    fun providesUserAPI(): TweetApi{[m
+[31m-        return retrofit.create(TweetApi::class.java)[m
+[32m+[m[32m    // Authenticated API service (requires authentication)[m
+[32m+[m[32m    fun providesTweetAPI(context: Context): TweetApi {[m
+[32m+[m[32m        return providesAuthRetrofit(context).create(TweetApi::class.java)[m
+     }[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/retrofitHelper/TokenManager.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/retrofitHelper/TokenManager.kt[m
+[1mindex f1550ba..2dcf7b5 100644[m
+[1m--- a/Frontend(Compose)/app/src/main/java/com/example/myapplication/retrofitHelper/TokenManager.kt[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/retrofitHelper/TokenManager.kt[m
+[36m@@ -2,17 +2,20 @@[m [mpackage com.example.myapplication.retrofitHelper[m
+ [m
+ import android.content.Context[m
+ [m
+[32m+[m
+ class TokenManager(context: Context) {[m
+ [m
+[31m-    private var prefs=context.getSharedPreferences("PREFS_TOKEN_FILE", Context.MODE_PRIVATE)[m
+[32m+[m[32m    private var prefs = context.getSharedPreferences("PREFS_TOKEN_FILE", Context.MODE_PRIVATE)[m
+ [m
+[31m-    fun saveToken(token:String){[m
+[31m-        val editor=prefs.edit()[m
+[31m-        editor.putString("USER_TOKEN",token)[m
+[32m+[m[32m    // Save token in shared preferences[m
+[32m+[m[32m    fun saveToken(token: String) {[m
+[32m+[m[32m        val editor = prefs.edit()[m
+[32m+[m[32m        editor.putString("USER_TOKEN", token)[m
+         editor.apply()[m
+     }[m
+ [m
+[32m+[m[32m    // Retrieve token from shared preferences[m
+     fun getToken(): String? {[m
+[31m-        return prefs.getString("USER_TOKEN",null)[m
+[32m+[m[32m        return prefs.getString("USER_TOKEN", null)[m
+     }[m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32m}[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/screens/HomeScreen.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/screens/HomeScreen.kt[m
+[1mindex da7424d..da86114 100644[m
+[1m--- a/Frontend(Compose)/app/src/main/java/com/example/myapplication/screens/HomeScreen.kt[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/screens/HomeScreen.kt[m
+[36m@@ -1,6 +1,7 @@[m
+ package com.example.myapplication.screens[m
+ [m
+ import android.annotation.SuppressLint[m
+[32m+[m[32mimport android.content.Context[m
+ import android.util.Log[m
+ import androidx.compose.foundation.layout.Spacer[m
+ import androidx.compose.foundation.layout.fillMaxSize[m
+[36m@@ -10,25 +11,30 @@[m [mimport androidx.compose.foundation.lazy.items[m
+ import androidx.compose.material3.Scaffold[m
+ import androidx.compose.runtime.*[m
+ import androidx.compose.ui.Modifier[m
+[32m+[m[32mimport androidx.compose.ui.platform.LocalContext[m
+ import androidx.compose.ui.tooling.preview.Preview[m
+ import androidx.compose.ui.unit.dp[m
+ import androidx.lifecycle.viewmodel.compose.viewModel[m
+ import androidx.navigation.NavHostController[m
+ import com.example.myapplication.Repository.ApiRepository[m
+[32m+[m[32mimport com.example.myapplication.Repository.PublicRepository[m
+ import com.example.myapplication.components.Tweet[m
+ import com.example.myapplication.retrofitHelper.RetrofitInstance[m
+[32m+[m[32mimport com.example.myapplication.viewModels.PublicViewModel[m
+[32m+[m[32mimport com.example.myapplication.viewModels.PublicViewModelFactory[m
+ import com.example.myapplication.viewModels.TweetViewModelFactory[m
+ import com.example.myapplication.viewmodel.TweetViewModel[m
+ [m
+ @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")[m
+ @Composable[m
+ fun HomeScreen(navController: NavHostController) {[m
+[31m-    // Observe the tweet list from the ViewModel[m
+[31m-    Log.d("InsideHome","working good")[m
+[31m-    val tweetViewModel: TweetViewModel = viewModel([m
+[31m-        factory = TweetViewModelFactory(ApiRepository(RetrofitInstance.api))[m
+[32m+[m
+[32m+[m[32m    val context:Context= LocalContext.current[m
+[32m+[m[32m    val retrofitInstance:RetrofitInstance= RetrofitInstance("")[m
+[32m+[m
+[32m+[m[32m    val tweetViewModel:TweetViewModel= viewModel([m
+[32m+[m[32m        factory = TweetViewModelFactory(ApiRepository(retrofitInstance.providesTweetAPI(context)))[m
+     )[m
+[31m-    Log.d("I AM HERE","working good")[m
+     val tweetList = tweetViewModel.tweets.collectAsState()[m
+     Log.d("I AM HERE","working good")[m
+     Scaffold([m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/screens/LoginScreen.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/screens/LoginScreen.kt[m
+[1mindex 71aa6f3..377961f 100644[m
+[1m--- a/Frontend(Compose)/app/src/main/java/com/example/myapplication/screens/LoginScreen.kt[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/screens/LoginScreen.kt[m
+[36m@@ -38,13 +38,13 @@[m [mimport androidx.compose.ui.text.style.TextAlign[m
+ import androidx.compose.ui.tooling.preview.Preview[m
+ import androidx.compose.ui.unit.dp[m
+ import androidx.compose.ui.unit.sp[m
+[32m+[m[32mimport androidx.navigation.NavHostController[m
+ import com.example.myapplication.R[m
+ [m
+ [m
+ @OptIn(ExperimentalMaterial3Api::class)[m
+ @Composable[m
+[31m-@Preview(showBackground = true)[m
+[31m-fun LoginScreen() {[m
+[32m+[m[32mfun LoginScreen(navController: NavHostController) {[m
+     var username by remember {[m
+         mutableStateOf("")[m
+     }[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/screens/SignUp2.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/screens/SignUp2.kt[m
+[1mindex f9b3bd0..20025ce 100644[m
+[1m--- a/Frontend(Compose)/app/src/main/java/com/example/myapplication/screens/SignUp2.kt[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/screens/SignUp2.kt[m
+[36m@@ -20,13 +20,13 @@[m [mimport androidx.compose.ui.unit.sp[m
+ import androidx.lifecycle.viewmodel.compose.viewModel[m
+ import androidx.navigation.NavController[m
+ import com.example.myapplication.Repository.ApiRepository[m
+[32m+[m[32mimport com.example.myapplication.Repository.PublicRepository[m
+ import com.example.myapplication.components.InputField[m
+ import com.example.myapplication.models.User[m
+ import com.example.myapplication.retrofitHelper.RetrofitInstance[m
+[31m-import com.example.myapplication.viewModels.TweetViewModelFactory[m
+[32m+[m[32mimport com.example.myapplication.viewModels.PublicViewModel[m
+ import com.example.myapplication.viewModels.UserViewModel[m
+[31m-import com.example.myapplication.viewModels.UserViewModelFactory[m
+[31m-import com.example.myapplication.viewmodel.TweetViewModel[m
+[32m+[m[32mimport com.example.myapplication.viewModels.PublicViewModelFactory[m
+ [m
+ @Composable[m
+ fun SignUp2(navController: NavController, username:String, password:String) {[m
+[36m@@ -37,8 +37,14 @@[m [mfun SignUp2(navController: NavController, username:String, password:String) {[m
+     var firstDomain by remember { mutableStateOf("") }[m
+     var secondDomain by remember { mutableStateOf("") }[m
+ [m
+[31m-    val userViewModel: UserViewModel = viewModel([m
+[31m-        factory = UserViewModelFactory(ApiRepository(RetrofitInstance.api))[m
+[32m+[m[32m//    val userViewModel: UserViewModel = viewModel([m
+[32m+[m[32m//        factory = PublicViewModelFactory(ApiRepository(RetrofitInstance.api))[m
+[32m+[m[32m//    )[m
+[32m+[m
+[32m+[m[32m    val retrofitInstance:RetrofitInstance= RetrofitInstance()[m
+[32m+[m
+[32m+[m[32m    val publicViewModel:PublicViewModel= viewModel([m
+[32m+[m[32m        factory = PublicViewModelFactory(PublicRepository(retrofitInstance.providesPublicApiService()))[m
+     )[m
+ [m
+ [m
+[36m@@ -109,11 +115,10 @@[m [mfun SignUp2(navController: NavController, username:String, password:String) {[m
+             // Right arrow on SignUp screen (non-functional)[m
+             IconButton([m
+                 onClick = {[m
+[31m-                    var user:User=User(branch,email,firstDomain,secondDomain,name,password,username,year)[m
+[32m+[m[32m                    var user=User(branch,email,firstDomain,secondDomain,name,password,username,year)[m
+                     Log.d("USER CREATED", user.toString())[m
+[31m-                    var response=userViewModel.authentication(user)[m
+[31m-                    navController.navigate("homescreen")[m
+[31m-                    Log.d("CHAL GYI API", response.toString())[m
+[32m+[m[32m                    publicViewModel.createUser(user)[m
+[32m+[m[32m                    navController.navigate("login")[m
+                 },[m
+                 modifier = Modifier[m
+                     .align(Alignment.CenterEnd)[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/service/PublicApiService.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/service/PublicApiService.kt[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ced5215[m
+[1m--- /dev/null[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/service/PublicApiService.kt[m
+[36m@@ -0,0 +1,18 @@[m
+[32m+[m[32mpackage com.example.myapplication.service[m
+[32m+[m
+[32m+[m[32mimport com.example.myapplication.models.Tweet[m
+[32m+[m[32mimport com.example.myapplication.models.User[m
+[32m+[m[32mimport retrofit2.Response[m
+[32m+[m[32mimport retrofit2.http.Body[m
+[32m+[m[32mimport retrofit2.http.GET[m
+[32m+[m[32mimport retrofit2.http.POST[m
+[32m+[m
+[32m+[m[32minterface PublicApiService {[m
+[32m+[m[32m    @POST("/public/create-user")[m
+[32m+[m[32m    suspend fun createUser(@Body user:User):Response<String>[m
+[32m+[m
+[32m+[m[32m    @POST("/public/login")[m
+[32m+[m[32m    suspend fun login(@Body user:User):Response<String>[m
+[32m+[m
+[32m+[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/service/TweetApi.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/service/TweetApi.kt[m
+[1mindex 06bdf0f..684490e 100644[m
+[1m--- a/Frontend(Compose)/app/src/main/java/com/example/myapplication/service/TweetApi.kt[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/service/TweetApi.kt[m
+[36m@@ -9,7 +9,4 @@[m [mimport retrofit2.http.POST[m
+ interface TweetApi {[m
+     @GET("/tweets/all-tweets")[m
+     suspend fun getTweets(): Response<List<TweetResponse>>[m
+[31m-[m
+[31m-    @POST("/public/create-user")[m
+[31m-    suspend fun createUser(@Body user: User): Response<String>[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/PublicViewModel.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/PublicViewModel.kt[m
+[1mnew file mode 100644[m
+[1mindex 0000000..51af586[m
+[1m--- /dev/null[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/PublicViewModel.kt[m
+[36m@@ -0,0 +1,47 @@[m
+[32m+[m[32mpackage com.example.myapplication.viewModels[m
+[32m+[m
+[32m+[m[32mimport android.util.Log[m
+[32m+[m[32mimport androidx.lifecycle.ViewModel[m
+[32m+[m[32mimport androidx.lifecycle.viewModelScope[m
+[32m+[m[32mimport com.example.myapplication.Repository.ApiRepository[m
+[32m+[m[32mimport com.example.myapplication.Repository.PublicRepository[m
+[32m+[m[32mimport com.example.myapplication.models.User[m
+[32m+[m[32mimport com.example.myapplication.retrofitHelper.RetrofitInstance[m
+[32m+[m[32mimport kotlinx.coroutines.flow.MutableStateFlow[m
+[32m+[m[32mimport kotlinx.coroutines.flow.StateFlow[m
+[32m+[m[32mimport kotlinx.coroutines.launch[m
+[32m+[m[32mimport retrofit2.HttpException[m
+[32m+[m[32mimport retrofit2.Response[m
+[32m+[m
+[32m+[m[32mclass PublicViewModel(private var repository: PublicRepository):ViewModel(){[m
+[32m+[m[32m    var emptyUser:User=User("","","","","","","", 0.toString())[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    fun createUser(user:User) {[m
+[32m+[m[32m        viewModelScope.launch {[m
+[32m+[m[32m            try {[m
+[32m+[m[32m                val response = repository.createUser(user)[m
+[32m+[m[32m                Log.d("CREATION",response.toString())[m
+[32m+[m[32m            } catch (e: HttpException) {[m
+[32m+[m[32m                Log.w("CREATION HTTP EXCEPTION", e.toString())[m
+[32m+[m[32m            } catch (e: Exception) {[m
+[32m+[m[32m                Log.w("CREATION EXCEPTION", e.toString())[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    private fun login(user:User){[m
+[32m+[m[32m        viewModelScope.launch {[m
+[32m+[m[32m            try {[m
+[32m+[m[32m                val response = repository.login(user)[m
+[32m+[m[32m                Log.d("CREATION",response.toString())[m
+[32m+[m[32m            } catch (e: HttpException) {[m
+[32m+[m[32m                Log.w("CREATION HTTP EXCEPTION", e.toString())[m
+[32m+[m[32m            } catch (e: Exception) {[m
+[32m+[m[32m                Log.w("CREATION EXCEPTION", e.toString())[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/PublicViewModelFactory.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/PublicViewModelFactory.kt[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9c6d757[m
+[1m--- /dev/null[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/PublicViewModelFactory.kt[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32mpackage com.example.myapplication.viewModels[m
+[32m+[m
+[32m+[m[32mimport androidx.lifecycle.ViewModel[m
+[32m+[m[32mimport androidx.lifecycle.ViewModelProvider[m
+[32m+[m[32mimport com.example.myapplication.Repository.ApiRepository[m
+[32m+[m[32mimport com.example.myapplication.Repository.PublicRepository[m
+[32m+[m
+[32m+[m[32mclass PublicViewModelFactory(private val publicRepository: PublicRepository) : ViewModelProvider.Factory {[m
+[32m+[m[32m    override fun <T : ViewModel> create(modelClass: Class<T>): T {[m
+[32m+[m[32m        if (modelClass.isAssignableFrom(PublicViewModel::class.java)) {[m
+[32m+[m[32m            return PublicViewModel(publicRepository) as T[m
+[32m+[m[32m        }[m
+[32m+[m[32m        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/UserViewModel.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/UserViewModel.kt[m
+[1mindex 5f52fa8..6ba54ba 100644[m
+[1m--- a/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/UserViewModel.kt[m
+[1m+++ b/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/UserViewModel.kt[m
+[36m@@ -13,18 +13,6 @@[m [mimport retrofit2.HttpException[m
+ [m
+ class UserViewModel(private var repository:ApiRepository):ViewModel() {[m
+ [m
+[31m-    fun authentication(user:User) {[m
+[31m-        viewModelScope.launch {[m
+[31m-            try {[m
+[31m-                Log.d("SUCCESSFUL CALL","working good")[m
+[31m-                val response = repository.createUser(user)[m
+[31m-                Log.d("YE LE TERI CALL",response.toString())[m
+[31m-            } catch (e: HttpException) {[m
+[31m-                Log.w("HTTP ERROR",e.toString())[m
+[31m-            } catch (e: Exception) {[m
+[31m-                Log.w("EXCEPTION OCCURED",e.toString())[m
+[31m-            }[m
+[31m-        }[m
+[31m-    }[m
+[32m+[m
+ [m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/UserViewModelFactory.kt b/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/UserViewModelFactory.kt[m
+[1mdeleted file mode 100644[m
+[1mindex dea99fb..0000000[m
+[1m--- a/Frontend(Compose)/app/src/main/java/com/example/myapplication/viewModels/UserViewModelFactory.kt[m
+[1m+++ /dev/null[m
+[36m@@ -1,13 +0,0 @@[m
+[31m-package com.example.myapplication.viewModels[m
+[31m-[m
+[31m-import androidx.lifecycle.ViewModel[m
+[31m-import androidx.lifecycle.ViewModelProvider[m
+[31m-import com.example.myapplication.Repository.ApiRepository[m
+[31m-import com.example.myapplication.models.User[m
+[31m-[m
+[31m-class UserViewModelFactory(private val apiRepository: ApiRepository):ViewModelProvider.Factory{[m
+[31m-    override fun <T : ViewModel> create(modelClass: Class<T>): T {[m
+[31m-        return UserViewModel(apiRepository) as T[m
+[31m-    }[m
+[31m-[m
+[31m-}[m
+\ No newline at end of file[m
+[1mdiff --git a/mvnw b/mvnw[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d7c358e[m
+[1m--- /dev/null[m
+[1m+++ b/mvnw[m
+[36m@@ -0,0 +1,259 @@[m
+[32m+[m[32m#!/bin/sh[m
+[32m+[m[32m# ----------------------------------------------------------------------------[m
+[32m+[m[32m# Licensed to the Apache Software Foundation (ASF) under one[m
+[32m+[m[32m# or more contributor license agreements.  See the NOTICE file[m
+[32m+[m[32m# distributed with this work for additional information[m
+[32m+[m[32m# regarding copyright ownership.  The ASF licenses this file[m
+[32m+[m[32m# to you under the Apache License, Version 2.0 (the[m
+[32m+[m[32m# "License"); you may not use this file except in compliance[m
+[32m+[m[32m# with the License.  You may obtain a copy of the License at[m
+[32m+[m[32m#[m
+[32m+[m[32m#    https://www.apache.org/licenses/LICENSE-2.0[m
+[32m+[m[32m#[m
+[32m+[m[32m# Unless required by applicable law or agreed to in writing,[m
+[32m+[m[32m# software distributed under the License is distributed on an[m
+[32m+[m[32m# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY[m
+[32m+[m[32m# KIND, either express or implied.  See the License for the[m
+[32m+[m[32m# specific language governing permissions and limitations[m
+[32m+[m[32m# under the License.[m
+[32m+[m[32m# ----------------------------------------------------------------------------[m
+[32m+[m
+[32m+[m[32m# ----------------------------------------------------------------------------[m
+[32m+[m[32m# Apache Maven Wrapper startup batch script, version 3.3.2[m
+[32m+[m[32m#[m
+[32m+[m[32m# Optional ENV vars[m
+[32m+[m[32m# -----------------[m
+[32m+[m[32m#   JAVA_HOME - location of a JDK home dir, required when download maven via java source[m
+[32m+[m[32m#   MVNW_REPOURL - repo url base for downloading maven distribution[m
+[32m+[m[32m#   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven[m
+[32m+[m[32m#   MVNW_VERBOSE - true: enable verbose log; debug: trace the mvnw script; others: silence the output[m
+[32m+[m[32m# ----------------------------------------------------------------------------[m
+[32m+[m
+[32m+[m[32mset -euf[m
+[32m+[m[32m[ "${MVNW_VERBOSE-}" != debug ] || set -x[m
+[32m+[m
+[32m+[m[32m# OS specific support.[m
+[32m+[m[32mnative_path() { printf %s\\n "$1"; }[m
+[32m+[m[32mcase "$(uname)" in[m
+[32m+[m[32mCYGWIN* | MINGW*)[m
+[32m+[m[32m  [ -z "${JAVA_HOME-}" ] || JAVA_HOME="$(cygpath --unix "$JAVA_HOME")"[m
+[32m+[m[32m  native_path() { cygpath --path --windows "$1"; }[m
+[32m+[m[32m  ;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32m# set JAVACMD and JAVACCMD[m
+[32m+[m[32mset_java_home() {[m
+[32m+[m[32m  # For Cygwin and MinGW, ensure paths are in Unix format before anything is touched[m
+[32m+[m[32m  if [ -n "${JAVA_HOME-}" ]; then[m
+[32m+[m[32m    if [ -x "$JAVA_HOME/jre/sh/java" ]; then[m
+[32m+[m[32m      # IBM's JDK on AIX uses strange locations for the executables[m
+[32m+[m[32m      JAVACMD="$JAVA_HOME/jre/sh/java"[m
+[32m+[m[32m      JAVACCMD="$JAVA_HOME/jre/sh/javac"[m
+[32m+[m[32m    else[m
+[32m+[m[32m      JAVACMD="$JAVA_HOME/bin/java"[m
+[32m+[m[32m      JAVACCMD="$JAVA_HOME/bin/javac"[m
+[32m+[m
+[32m+[m[32m      if [ ! -x "$JAVACMD" ] || [ ! -x "$JAVACCMD" ]; then[m
+[32m+[m[32m        echo "The JAVA_HOME environment variable is not defined correctly, so mvnw cannot run." >&2[m
+[32m+[m[32m        echo "JAVA_HOME is set to \"$JAVA_HOME\", but \"\$JAVA_HOME/bin/java\" or \"\$JAVA_HOME/bin/javac\" does not exist." >&2[m
+[32m+[m[32m        return 1[m
+[32m+[m[32m      fi[m
+[32m+[m[32m    fi[m
+[32m+[m[32m  else[m
+[32m+[m[32m    JAVACMD="$([m
+[32m+[m[32m      'set' +e[m
+[32m+[m[32m      'unset' -f command 2>/dev/null[m
+[32m+[m[32m      'command' -v java[m
+[32m+[m[32m    )" || :[m
+[32m+[m[32m    JAVACCMD="$([m
+[32m+[m[32m      'set' +e[m
+[32m+[m[32m      'unset' -f command 2>/dev/null[m
+[32m+[m[32m      'command' -v javac[m
+[32m+[m[32m    )" || :[m
+[32m+[m
+[32m+[m[32m    if [ ! -x "${JAVACMD-}" ] || [ ! -x "${JAVACCMD-}" ]; then[m
+[32m+[m[32m      echo "The java/javac command does not exist in PATH nor is JAVA_HOME set, so mvnw cannot run." >&2[m
+[32m+[m[32m      return 1[m
+[32m+[m[32m    fi[m
+[32m+[m[32m  fi[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m# hash string like Java String::hashCode[m
+[32m+[m[32mhash_string() {[m
+[32m+[m[32m  str="${1:-}" h=0[m
+[32m+[m[32m  while [ -n "$str" ]; do[m
+[32m+[m[32m    char="${str%"${str#?}"}"[m
+[32m+[m[32m    h=$(((h * 31 + $(LC_CTYPE=C printf %d "'$char")) % 4294967296))[m
+[32m+[m[32m    str="${str#?}"[m
+[32m+[m[32m  done[m
+[32m+[m[32m  printf %x\\n $h[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mverbose() { :; }[m
+[32m+[m[32m[ "${MVNW_VERBOSE-}" != true ] || verbose() { printf %s\\n "${1-}"; }[m
+[32m+[m
+[32m+[m[32mdie() {[m
+[32m+[m[32m  printf %s\\n "$1" >&2[m
+[32m+[m[32m  exit 1[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mtrim() {[m
+[32m+[m[32m  # MWRAPPER-139:[m
+[32m+[m[32m  #   Trims trailing and leading whitespace, carriage returns, tabs, and linefeeds.[m
+[32m+[m[32m  #   Needed for removing poorly interpreted newline sequences when running in more[m
+[32m+[m[32m  #   exotic environments such as mingw bash on Windows.[m
+[32m+[m[32m  printf "%s" "${1}" | tr -d '[:space:]'[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m# parse distributionUrl and optional distributionSha256Sum, requires .mvn/wrapper/maven-wrapper.properties[m
+[32m+[m[32mwhile IFS="=" read -r key value; do[m
+[32m+[m[32m  case "${key-}" in[m
+[32m+[m[32m  distributionUrl) distributionUrl=$(trim "${value-}") ;;[m
+[32m+[m[32m  distributionSha256Sum) distributionSha256Sum=$(trim "${value-}") ;;[m
+[32m+[m[32m  esac[m
+[32m+[m[32mdone <"${0%/*}/.mvn/wrapper/maven-wrapper.properties"[m
+[32m+[m[32m[ -n "${distributionUrl-}" ] || die "cannot read distributionUrl property in ${0%/*}/.mvn/wrapper/maven-wrapper.properties"[m
+[32m+[m
+[32m+[m[32mcase "${distributionUrl##*/}" in[m
+[32m+[m[32mmaven-mvnd-*bin.*)[m
+[32m+[m[32m  MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/[m
+[32m+[m[32m  case "${PROCESSOR_ARCHITECTURE-}${PROCESSOR_ARCHITEW6432-}:$(uname -a)" in[m
+[32m+[m[32m  *AMD64:CYGWIN* | *AMD64:MINGW*) distributionPlatform=windows-amd64 ;;[m
+[32m+[m[32m  :Darwin*x86_64) distributionPlatform=darwin-amd64 ;;[m
+[32m+[m[32m  :Darwin*arm64) distributionPlatform=darwin-aarch64 ;;[m
+[32m+[m[32m  :Linux*x86_64*) distributionPlatform=linux-amd64 ;;[m
+[32m+[m[32m  *)[m
+[32m+[m[32m    echo "Cannot detect native platform for mvnd on $(uname)-$(uname -m), use pure java version" >&2[m
+[32m+[m[32m    distributionPlatform=linux-amd64[m
+[32m+[m[32m    ;;[m
+[32m+[m[32m  esac[m
+[32m+[m[32m  distributionUrl="${distributionUrl%-bin.*}-$distributionPlatform.zip"[m
+[32m+[m[32m  ;;[m
+[32m+[m[32mmaven-mvnd-*) MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/ ;;[m
+[32m+[m[32m*) MVN_CMD="mvn${0##*/mvnw}" _MVNW_REPO_PATTERN=/org/apache/maven/ ;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32m# apply MVNW_REPOURL and calculate MAVEN_HOME[m
+[32m+[m[32m# maven home pattern: ~/.m2/wrapper/dists/{apache-maven-<version>,maven-mvnd-<version>-<platform>}/<hash>[m
+[32m+[m[32m[ -z "${MVNW_REPOURL-}" ] || distributionUrl="$MVNW_REPOURL$_MVNW_REPO_PATTERN${distributionUrl#*"$_MVNW_REPO_PATTERN"}"[m
+[32m+[m[32mdistributionUrlName="${distributionUrl##*/}"[m
+[32m+[m[32mdistributionUrlNameMain="${distributionUrlName%.*}"[m
+[32m+[m[32mdistributionUrlNameMain="${distributionUrlNameMain%-bin}"[m
+[32m+[m[32mMAVEN_USER_HOME="${MAVEN_USER_HOME:-${HOME}/.m2}"[m
+[32m+[m[32mMAVEN_HOME="${MAVEN_USER_HOME}/wrapper/dists/${distributionUrlNameMain-}/$(hash_string "$distributionUrl")"[m
+[32m+[m
+[32m+[m[32mexec_maven() {[m
+[32m+[m[32m  unset MVNW_VERBOSE MVNW_USERNAME MVNW_PASSWORD MVNW_REPOURL || :[m
+[32m+[m[32m  exec "$MAVEN_HOME/bin/$MVN_CMD" "$@" || die "cannot exec $MAVEN_HOME/bin/$MVN_CMD"[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mif [ -d "$MAVEN_HOME" ]; then[m
+[32m+[m[32m  verbose "found existing MAVEN_HOME at $MAVEN_HOME"[m
+[32m+[m[32m  exec_maven "$@"[m
+[32m+[m[32mfi[m
+[32m+[m
+[32m+[m[32mcase "${distributionUrl-}" in[m
+[32m+[m[32m*?-bin.zip | *?maven-mvnd-?*-?*.zip) ;;[m
+[32m+[m[32m*) die "distributionUrl is not valid, must match *-bin.zip or maven-mvnd-*.zip, but found '${distributionUrl-}'" ;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32m# prepare tmp dir[m
+[32m+[m[32mif TMP_DOWNLOAD_DIR="$(mktemp -d)" && [ -d "$TMP_DOWNLOAD_DIR" ]; then[m
+[32m+[m[32m  clean() { rm -rf -- "$TMP_DOWNLOAD_DIR"; }[m
+[32m+[m[32m  trap clean HUP INT TERM EXIT[m
+[32m+[m[32melse[m
+[32m+[m[32m  die "cannot create temp dir"[m
+[32m+[m[32mfi[m
+[32m+[m
+[32m+[m[32mmkdir -p -- "${MAVEN_HOME%/*}"[m
+[32m+[m
+[32m+[m[32m# Download and Install Apache Maven[m
+[32m+[m[32mverbose "Couldn't find MAVEN_HOME, downloading and installing it ..."[m
+[32m+[m[32mverbose "Downloading from: $distributionUrl"[m
+[32m+[m[32mverbose "Downloading to: $TMP_DOWNLOAD_DIR/$distributionUrlName"[m
+[32m+[m
+[32m+[m[32m# select .zip or .tar.gz[m
+[32m+[m[32mif ! command -v unzip >/dev/null; then[m
+[32m+[m[32m  distributionUrl="${distributionUrl%.zip}.tar.gz"[m
+[32m+[m[32m  distributionUrlName="${distributionUrl##*/}"[m
+[32m+[m[32mfi[m
+[32m+[m
+[32m+[m[32m# verbose opt[m
+[32m+[m[32m__MVNW_QUIET_WGET=--quiet __MVNW_QUIET_CURL=--silent __MVNW_QUIET_UNZIP=-q __MVNW_QUIET_TAR=''[m
+[32m+[m[32m[ "${MVNW_VERBOSE-}" != true ] || __MVNW_QUIET_WGET='' __MVNW_QUIET_CURL='' __MVNW_QUIET_UNZIP='' __MVNW_QUIET_TAR=v[m
+[32m+[m
+[32m+[m[32m# normalize http auth[m
+[32m+[m[32mcase "${MVNW_PASSWORD:+has-password}" in[m
+[32m+[m[32m'') MVNW_USERNAME='' MVNW_PASSWORD='' ;;[m
+[32m+[m[32mhas-password) [ -n "${MVNW_USERNAME-}" ] || MVNW_USERNAME='' MVNW_PASSWORD='' ;;[m
+[32m+[m[32mesac[m
+[32m+[m
+[32m+[m[32mif [ -z "${MVNW_USERNAME-}" ] && command -v wget >/dev/null; then[m
+[32m+[m[32m  verbose "Found wget ... using wget"[m
+[32m+[m[32m  wget ${__MVNW_QUIET_WGET:+"$__MVNW_QUIET_WGET"} "$distributionUrl" -O "$TMP_DOWNLOAD_DIR/$distributionUrlName" || die "wget: Failed to fetch $distributionUrl"[m
+[32m+[m[32melif [ -z "${MVNW_USERNAME-}" ] && command -v curl >/dev/null; then[m
+[32m+[m[32m  verbose "Found curl ... using curl"[m
+[32m+[m[32m  curl ${__MVNW_QUIET_CURL:+"$__MVNW_QUIET_CURL"} -f -L -o "$TMP_DOWNLOAD_DIR/$distributionUrlName" "$distributionUrl" || die "curl: Failed to fetch $distributionUrl"[m
+[32m+[m[32melif set_java_home; then[m
+[32m+[m[32m  verbose "Falling back to use Java to download"[m
+[32m+[m[32m  javaSource="$TMP_DOWNLOAD_DIR/Downloader.java"[m
+[32m+[m[32m  targetZip="$TMP_DOWNLOAD_DIR/$distributionUrlName"[m
+[32m+[m[32m  cat >"$javaSource" <<-END[m
+[32m+[m	[32mpublic class Downloader extends java.net.Authenticator[m
+[32m+[m	[32m{[m
+[32m+[m	[32m  protected java.net.PasswordAuthentication getPasswordAuthentication()[m
+[32m+[m	[32m  {[m
+[32m+[m	[32m    return new java.net.PasswordAuthentication( System.getenv( "MVNW_USERNAME" ), System.getenv( "MVNW_PASSWORD" ).toCharArray() );[m
+[32m+[m	[32m  }[m
+[32m+[m	[32m  public static void main( String[] args ) throws Exception[m
+[32m+[m	[32m  {[m
+[32m+[m	[32m    setDefault( new Downloader() );[m
+[32m+[m	[32m    java.nio.file.Files.copy( java.net.URI.create( args[0] ).toURL().openStream(), java.nio.file.Paths.get( args[1] ).toAbsolutePath().normalize() );[m
+[32m+[m	[32m  }[m
+[32m+[m	[32m}[m
+[32m+[m	[32mEND[m
+[32m+[m[32m  # For Cygwin/MinGW, switch paths to Windows format before running javac and java[m
+[32m+[m[32m  verbose " - Compiling Downloader.java ..."[m
+[32m+[m[32m  "$(native_path "$JAVACCMD")" "$(native_path "$javaSource")" || die "Failed to compile Downloader.java"[m
+[32m+[m[32m  verbose " - Running Downloader.java ..."[m
+[32m+[m[32m  "$(native_path "$JAVACMD")" -cp "$(native_path "$TMP_DOWNLOAD_DIR")" Downloader "$distributionUrl" "$(native_path "$targetZip")"[m
+[32m+[m[32mfi[m
+[32m+[m
+[32m+[m[32m# If specified, validate the SHA-256 sum of the Maven distribution zip file[m
+[32m+[m[32mif [ -n "${distributionSha256Sum-}" ]; then[m
+[32m+[m[32m  distributionSha256Result=false[m
+[32m+[m[32m  if [ "$MVN_CMD" = mvnd.sh ]; then[m
+[32m+[m[32m    echo "Checksum validation is not supported for maven-mvnd." >&2[m
+[32m+[m[32m    echo "Please disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties." >&2[m
+[32m+[m[32m    exit 1[m
+[32m+[m[32m  elif command -v sha256sum >/dev/null; then[m
+[32m+[m[32m    if echo "$distributionSha256Sum  $TMP_DOWNLOAD_DIR/$distributionUrlName" | sha256sum -c >/dev/null 2>&1; then[m
+[32m+[m[32m      distributionSha256Result=true[m
+[32m+[m[32m    fi[m
+[32m+[m[32m  elif command -v shasum >/dev/null; then[m
+[32m+[m[32m    if echo "$distributionSha256Sum  $TMP_DOWNLOAD_DIR/$distributionUrlName" | shasum -a 256 -c >/dev/null 2>&1; then[m
+[32m+[m[32m      distributionSha256Result=true[m
+[32m+[m[32m    fi[m
+[32m+[m[32m  else[m
+[32m+[m[32m    echo "Checksum validation was requested but neither 'sha256sum' or 'shasum' are available." >&2[m
+[32m+[m[32m    echo "Please install either command, or disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties." >&2[m
+[32m+[m[32m    exit 1[m
+[32m+[m[32m  fi[m
+[32m+[m[32m  if [ $distributionSha256Result = false ]; then[m
+[32m+[m[32m    echo "Error: Failed to validate Maven distribution SHA-256, your Maven distribution might be compromised." >&2[m
+[32m+[m[32m    echo "If you updated your Maven version, you need to update the specified distributionSha256Sum property." >&2[m
+[32m+[m[32m    exit 1[m
+[32m+[m[32m  fi[m
+[32m+[m[32mfi[m
+[32m+[m
+[32m+[m[32m# unzip and move[m
+[32m+[m[32mif command -v unzip >/dev/null; then[m
+[32m+[m[32m  unzip ${__MVNW_QUIET_UNZIP:+"$__MVNW_QUIET_UNZIP"} "$TMP_DOWNLOAD_DIR/$distributionUrlName" -d "$TMP_DOWNLOAD_DIR" || die "failed to unzip"[m
+[32m+[m[32melse[m
+[32m+[m[32m  tar xzf${__MVNW_QUIET_TAR:+"$__MVNW_QUIET_TAR"} "$TMP_DOWNLOAD_DIR/$distributionUrlName" -C "$TMP_DOWNLOAD_DIR" || die "failed to untar"[m
+[32m+[m[32mfi[m
+[32m+[m[32mprintf %s\\n "$distributionUrl" >"$TMP_DOWNLOAD_DIR/$distributionUrlNameMain/mvnw.url"[m
+[32m+[m[32mmv -- "$TMP_DOWNLOAD_DIR/$distributionUrlNameMain" "$MAVEN_HOME" || [ -d "$MAVEN_HOME" ] || die "fail to move MAVEN_HOME"[m
+[32m+[m
+[32m+[m[32mclean || :[m
+[32m+[m[32mexec_maven "$@"[m
+[1mdiff --git a/mvnw.cmd b/mvnw.cmd[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6f779cf[m
+[1m--- /dev/null[m
+[1m+++ b/mvnw.cmd[m
+[36m@@ -0,0 +1,149 @@[m
+[32m+[m[32m<# : batch portion[m
+[32m+[m[32m@REM ----------------------------------------------------------------------------[m
+[32m+[m[32m@REM Licensed to the Apache Software Foundation (ASF) under one[m
+[32m+[m[32m@REM or more contributor license agreements.  See the NOTICE file[m
+[32m+[m[32m@REM distributed with this work for additional information[m
+[32m+[m[32m@REM regarding copyright ownership.  The ASF licenses this file[m
+[32m+[m[32m@REM to you under the Apache License, Version 2.0 (the[m
+[32m+[m[32m@REM "License"); you may not use this file except in compliance[m
+[32m+[m[32m@REM with the License.  You may obtain a copy of the License at[m
+[32m+[m[32m@REM[m
+[32m+[m[32m@REM    https://www.apache.org/licenses/LICENSE-2.0[m
+[32m+[m[32m@REM[m
+[32m+[m[32m@REM Unless required by applicable law or agreed to in writing,[m
+[32m+[m[32m@REM software distributed under the License is distributed on an[m
+[32m+[m[32m@REM "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY[m
+[32m+[m[32m@REM KIND, either express or implied.  See the License for the[m
+[32m+[m[32m@REM specific language governing permissions and limitations[m
+[32m+[m[32m@REM under the License.[m
+[32m+[m[32m@REM ----------------------------------------------------------------------------[m
+[32m+[m
+[32m+[m[32m@REM ----------------------------------------------------------------------------[m
+[32m+[m[32m@REM Apache Maven Wrapper startup batch script, version 3.3.2[m
+[32m+[m[32m@REM[m
+[32m+[m[32m@REM Optional ENV vars[m
+[32m+[m[32m@REM   MVNW_REPOURL - repo url base for downloading maven distribution[m
+[32m+[m[32m@REM   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven[m
+[32m+[m[32m@REM   MVNW_VERBOSE - true: enable verbose log; others: silence the output[m
+[32m+[m[32m@REM ----------------------------------------------------------------------------[m
+[32m+[m
+[32m+[m[32m@IF "%__MVNW_ARG0_NAME__%"=="" (SET __MVNW_ARG0_NAME__=%~nx0)[m
+[32m+[m[32m@SET __MVNW_CMD__=[m
+[32m+[m[32m@SET __MVNW_ERROR__=[m
+[32m+[m[32m@SET __MVNW_PSMODULEP_SAVE=%PSModulePath%[m
+[32m+[m[32m@SET PSModulePath=[m
+[32m+[m[32m@FOR /F "usebackq tokens=1* delims==" %%A IN (`powershell -noprofile "& {$scriptDir='%~dp0'; $script='%__MVNW_ARG0_NAME__%'; icm -ScriptBlock ([Scriptblock]::Create((Get-Content -Raw '%~f0'))) -NoNewScope}"`) DO @([m
+[32m+[m[32m  IF "%%A"=="MVN_CMD" (set __MVNW_CMD__=%%B) ELSE IF "%%B"=="" (echo %%A) ELSE (echo %%A=%%B)[m
+[32m+[m[32m)[m
+[32m+[m[32m@SET PSModulePath=%__MVNW_PSMODULEP_SAVE%[m
+[32m+[m[32m@SET __MVNW_PSMODULEP_SAVE=[m
+[32m+[m[32m@SET __MVNW_ARG0_NAME__=[m
+[32m+[m[32m@SET MVNW_USERNAME=[m
+[32m+[m[32m@SET MVNW_PASSWORD=[m
+[32m+[m[32m@IF NOT "%__MVNW_CMD__%"=="" (%__MVNW_CMD__% %*)[m
+[32m+[m[32m@echo Cannot start maven from wrapper >&2 && exit /b 1[m
+[32m+[m[32m@GOTO :EOF[m
+[32m+[m[32m: end batch / begin powershell #>[m
+[32m+[m
+[32m+[m[32m$ErrorActionPreference = "Stop"[m
+[32m+[m[32mif ($env:MVNW_VERBOSE -eq "true") {[m
+[32m+[m[32m  $VerbosePreference = "Continue"[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m# calculate distributionUrl, requires .mvn/wrapper/maven-wrapper.properties[m
+[32m+[m[32m$distributionUrl = (Get-Content -Raw "$scriptDir/.mvn/wrapper/maven-wrapper.properties" | ConvertFrom-StringData).distributionUrl[m
+[32m+[m[32mif (!$distributionUrl) {[m
+[32m+[m[32m  Write-Error "cannot read distributionUrl property in $scriptDir/.mvn/wrapper/maven-wrapper.properties"[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mswitch -wildcard -casesensitive ( $($distributionUrl -replace '^.*/','') ) {[m
+[32m+[m[32m  "maven-mvnd-*" {[m
+[32m+[m[32m    $USE_MVND = $true[m
+[32m+[m[32m    $distributionUrl = $distributionUrl -replace '-bin\.[^.]*$',"-windows-amd64.zip"[m
+[32m+[m[32m    $MVN_CMD = "mvnd.cmd"[m
+[32m+[m[32m    break[m
+[32m+[m[32m  }[m
+[32m+[m[32m  default {[m
+[32m+[m[32m    $USE_MVND = $false[m
+[32m+[m[32m    $MVN_CMD = $script -replace '^mvnw','mvn'[m
+[32m+[m[32m    break[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m# apply MVNW_REPOURL and calculate MAVEN_HOME[m
+[32m+[m[32m# maven home pattern: ~/.m2/wrapper/dists/{apache-maven-<version>,maven-mvnd-<version>-<platform>}/<hash>[m
+[32m+[m[32mif ($env:MVNW_REPOURL) {[m
+[32m+[m[32m  $MVNW_REPO_PATTERN = if ($USE_MVND) { "/org/apache/maven/" } else { "/maven/mvnd/" }[m
+[32m+[m[32m  $distributionUrl = "$env:MVNW_REPOURL$MVNW_REPO_PATTERN$($distributionUrl -replace '^.*'+$MVNW_REPO_PATTERN,'')"[m
+[32m+[m[32m}[m
+[32m+[m[32m$distributionUrlName = $distributionUrl -replace '^.*/',''[m
+[32m+[m[32m$distributionUrlNameMain = $distributionUrlName -replace '\.[^.]*$','' -replace '-bin$',''[m
+[32m+[m[32m$MAVEN_HOME_PARENT = "$HOME/.m2/wrapper/dists/$distributionUrlNameMain"[m
+[32m+[m[32mif ($env:MAVEN_USER_HOME) {[m
+[32m+[m[32m  $MAVEN_HOME_PARENT = "$env:MAVEN_USER_HOME/wrapper/dists/$distributionUrlNameMain"[m
+[32m+[m[32m}[m
+[32m+[m[32m$MAVEN_HOME_NAME = ([System.Security.Cryptography.MD5]::Create().ComputeHash([byte[]][char[]]$distributionUrl) | ForEach-Object {$_.ToString("x2")}) -join ''[m
+[32m+[m[32m$MAVEN_HOME = "$MAVEN_HOME_PARENT/$MAVEN_HOME_NAME"[m
+[32m+[m
+[32m+[m[32mif (Test-Path -Path "$MAVEN_HOME" -PathType Container) {[m
+[32m+[m[32m  Write-Verbose "found existing MAVEN_HOME at $MAVEN_HOME"[m
+[32m+[m[32m  Write-Output "MVN_CMD=$MAVEN_HOME/bin/$MVN_CMD"[m
+[32m+[m[32m  exit $?[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mif (! $distributionUrlNameMain -or ($distributionUrlName -eq $distributionUrlNameMain)) {[m
+[32m+[m[32m  Write-Error "distributionUrl is not valid, must end with *-bin.zip, but found $distributionUrl"[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m# prepare tmp dir[m
+[32m+[m[32m$TMP_DOWNLOAD_DIR_HOLDER = New-TemporaryFile[m
+[32m+[m[32m$TMP_DOWNLOAD_DIR = New-Item -Itemtype Directory -Path "$TMP_DOWNLOAD_DIR_HOLDER.dir"[m
+[32m+[m[32m$TMP_DOWNLOAD_DIR_HOLDER.Delete() | Out-Null[m
+[32m+[m[32mtrap {[m
+[32m+[m[32m  if ($TMP_DOWNLOAD_DIR.Exists) {[m
+[32m+[m[32m    try { Remove-Item $TMP_DOWNLOAD_DIR -Recurse -Force | Out-Null }[m
+[32m+[m[32m    catch { Write-Warning "Cannot remove $TMP_DOWNLOAD_DIR" }[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mNew-Item -Itemtype Directory -Path "$MAVEN_HOME_PARENT" -Force | Out-Null[m
+[32m+[m
+[32m+[m[32m# Download and Install Apache Maven[m
+[32m+[m[32mWrite-Verbose "Couldn't find MAVEN_HOME, downloading and installing it ..."[m
+[32m+[m[32mWrite-Verbose "Downloading from: $distributionUrl"[m
+[32m+[m[32mWrite-Verbose "Downloading to: $TMP_DOWNLOAD_DIR/$distributionUrlName"[m
+[32m+[m
+[32m+[m[32m$webclient = New-Object System.Net.WebClient[m
+[32m+[m[32mif ($env:MVNW_USERNAME -and $env:MVNW_PASSWORD) {[m
+[32m+[m[32m  $webclient.Credentials = New-Object System.Net.NetworkCredential($env:MVNW_USERNAME, $env:MVNW_PASSWORD)[m
+[32m+[m[32m}[m
+[32m+[m[32m[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12[m
+[32m+[m[32m$webclient.DownloadFile($distributionUrl, "$TMP_DOWNLOAD_DIR/$distributionUrlName") | Out-Null[m
+[32m+[m
+[32m+[m[32m# If specified, validate the SHA-256 sum of the Maven distribution zip file[m
+[32m+[m[32m$distributionSha256Sum = (Get-Content -Raw "$scriptDir/.mvn/wrapper/maven-wrapper.properties" | ConvertFrom-StringData).distributionSha256Sum[m
+[32m+[m[32mif ($distributionSha256Sum) {[m
+[32m+[m[32m  if ($USE_MVND) {[m
+[32m+[m[32m    Write-Error "Checksum validation is not supported for maven-mvnd. `nPlease disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties."[m
+[32m+[m[32m  }[m
+[32m+[m[32m  Import-Module $PSHOME\Modules\Microsoft.PowerShell.Utility -Function Get-FileHash[m
+[32m+[m[32m  if ((Get-FileHash "$TMP_DOWNLOAD_DIR/$distributionUrlName" -Algorithm SHA256).Hash.ToLower() -ne $distributionSha256Sum) {[m
+[32m+[m[32m    Write-Error "Error: Failed to validate Maven distribution SHA-256, your Maven distribution might be compromised. If you updated your Maven version, you need to update the specified distributionSha256Sum property."[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m# unzip and move[m
+[32m+[m[32mExpand-Archive "$TMP_DOWNLOAD_DIR/$distributionUrlName" -DestinationPath "$TMP_DOWNLOAD_DIR" | Out-Null[m
+[32m+[m[32mRename-Item -Path "$TMP_DOWNLOAD_DIR/$distributionUrlNameMain" -NewName $MAVEN_HOME_NAME | Out-Null[m
+[32m+[m[32mtry {[m
+[32m+[m[32m  Move-Item -Path "$TMP_DOWNLOAD_DIR/$MAVEN_HOME_NAME" -Destination $MAVEN_HOME_PARENT | Out-Null[m
+[32m+[m[32m} catch {[m
+[32m+[m[32m  if (! (Test-Path -Path "$MAVEN_HOME" -PathType Container)) {[m
+[32m+[m[32m    Write-Error "fail to move MAVEN_HOME"[m
+[32m+[m[32m  }[m
+[32m+[m[32m} finally {[m
+[32m+[m[32m  try { Remove-Item $TMP_DOWNLOAD_DIR -Recurse -Force | Out-Null }[m
+[32m+[m[32m  catch { Write-Warning "Cannot remove $TMP_DOWNLOAD_DIR" }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mWrite-Output "MVN_CMD=$MAVEN_HOME/bin/$MVN_CMD"[m
+[1mdiff --git a/pom.xml b/pom.xml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..befdb8f[m
+[1m--- /dev/null[m
+[1m+++ b/pom.xml[m
+[36m@@ -0,0 +1,88 @@[m
+[32m+[m[32m<?xml version="1.0" encoding="UTF-8"?>[m
+[32m+[m[32m<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"[m
+[32m+[m	[32mxsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">[m
+[32m+[m	[32m<modelVersion>4.0.0</modelVersion>[m
+[32m+[m	[32m<parent>[m
+[32m+[m		[32m<groupId>org.springframework.boot</groupId>[m
+[32m+[m		[32m<artifactId>spring-boot-starter-parent</artifactId>[m
+[32m+[m		[32m<version>3.3.2</version>[m
+[32m+[m		[32m<relativePath/> <!-- lookup parent from repository -->[m
+[32m+[m	[32m</parent>[m
+[32m+[m	[32m<groupId>com.example</groupId>[m
+[32m+[m	[32m<artifactId>collabcraft</artifactId>[m
+[32m+[m	[32m<version>0.0.1-SNAPSHOT</version>[m
+[32m+[m	[32m<name>collabcraft</name>[m
+[32m+[m	[32m<description>Demo project for Spring Boot</description>[m
+[32m+[m	[32m<url/>[m
+[32m+[m	[32m<licenses>[m
+[32m+[m		[32m<license/>[m
+[32m+[m	[32m</licenses>[m
+[32m+[m	[32m<developers>[m
+[32m+[m		[32m<developer/>[m
+[32m+[m	[32m</developers>[m
+[32m+[m	[32m<scm>[m
+[32m+[m		[32m<connection/>[m
+[32m+[m		[32m<developerConnection/>[m
+[32m+[m		[32m<tag/>[m
+[32m+[m		[32m<url/>[m
+[32m+[m	[32m</scm>[m
+[32m+[m	[32m<properties>[m
+[32m+[m		[32m<java.version>21</java.version>[m
+[32m+[m	[32m</properties>[m
+[32m+[m	[32m<dependencies>[m
+[32m+[m		[32m<dependency>[m
+[32m+[m			[32m<groupId>org.springframework.boot</groupId>[m
+[32m+[m			[32m<artifactId>spring-boot-starter-data-mongodb</artifactId>[m
+[32m+[m		[32m</dependency>[m
+[32m+[m		[32m<dependency>[m
+[32m+[m			[32m<groupId>org.springframework.boot</groupId>[m
+[32m+[m			[32m<artifactId>spring-boot-starter-security</artifactId>[m
+[32m+[m		[32m</dependency>[m
+[32m+[m		[32m<dependency>[m
+[32m+[m			[32m<groupId>org.springframework.boot</groupId>[m
+[32m+[m			[32m<artifactId>spring-boot-starter-web</artifactId>[m
+[32m+[m		[32m</dependency>[m
+[32m+[m
+[32m+[m		[32m<dependency>[m
+[32m+[m			[32m<groupId>org.springframework.boot</groupId>[m
+[32m+[m			[32m<artifactId>spring-boot-devtools</artifactId>[m
+[32m+[m			[32m<scope>runtime</scope>[m
+[32m+[m			[32m<optional>true</optional>[m
+[32m+[m		[32m</dependency>[m
+[32m+[m
+[32m+[m
+[32m+[m		[32m<dependency>[m
+[32m+[m			[32m<groupId>org.projectlombok</groupId>[m
+[32m+[m			[32m<artifactId>lombok</artifactId>[m
+[32m+[m			[32m<optional>true</optional>[m
+[32m+[m		[32m</dependency>[m
+[32m+[m		[32m<dependency>[m
+[32m+[m			[32m<groupId>org.springframework.boot</groupId>[m
+[32m+[m			[32m<artifactId>spring-boot-starter-test</artifactId>[m
+[32m+[m			[32m<scope>test</scope>[m
+[32m+[m		[32m</dependency>[m
+[32m+[m		[32m<dependency>[m
+[32m+[m			[32m<groupId>org.springframework.security</groupId>[m
+[32m+[m			[32m<artifactId>spring-security-test</artifactId>[m
+[32m+[m			[32m<scope>test</scope>[m
+[32m+[m		[32m</dependency>[m
+[32m+[m	[32m</dependencies>[m
+[32m+[m
+[32m+[m	[32m<build>[m
+[32m+[m		[32m<plugins>[m
+[32m+[m			[32m<plugin>[m
+[32m+[m				[32m<groupId>org.springframework.boot</groupId>[m
+[32m+[m				[32m<artifactId>spring-boot-maven-plugin</artifactId>[m
+[32m+[m				[32m<configuration>[m
+[32m+[m					[32m<excludes>[m
+[32m+[m						[32m<exclude>[m
+[32m+[m							[32m<groupId>org.projectlombok</groupId>[m
+[32m+[m							[32m<artifactId>lombok</artifactId>[m
+[32m+[m						[32m</exclude>[m
+[32m+[m					[32m</excludes>[m
+[32m+[m				[32m</configuration>[m
+[32m+[m			[32m</plugin>[m
+[32m+[m		[32m</plugins>[m
+[32m+[m	[32m</build>[m
+[32m+[m
+[32m+[m[32m</project>[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/CollabcraftApplication.java b/src/main/java/com/example/collabcraft/CollabcraftApplication.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e896643[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/CollabcraftApplication.java[m
+[36m@@ -0,0 +1,16 @@[m
+[32m+[m[32mpackage com.example.collabcraft;[m
+[32m+[m
+[32m+[m[32mimport com.example.collabcraft.Controllers.PublicController;[m
+[32m+[m[32mimport org.springframework.boot.SpringApplication;[m
+[32m+[m[32mimport org.springframework.boot.autoconfigure.SpringBootApplication;[m
+[32m+[m[32mimport org.springframework.context.ConfigurableApplicationContext;[m
+[32m+[m
+[32m+[m[32m@SpringBootApplication[m
+[32m+[m[32mpublic class CollabcraftApplication {[m
+[32m+[m
+[32m+[m	[32mpublic static void main(String[] args) {[m
+[32m+[m
+[32m+[m		[32m SpringApplication.run(CollabcraftApplication.class, args);[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/Configs/MongoConfig.java b/src/main/java/com/example/collabcraft/Configs/MongoConfig.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..219e6a5[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/Configs/MongoConfig.java[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32mpackage com.example.collabcraft.Configs;[m
+[32m+[m
+[32m+[m[32mimport org.springframework.context.annotation.Bean;[m
+[32m+[m[32mimport org.springframework.context.annotation.Configuration;[m
+[32m+[m[32mimport org.springframework.data.mongodb.MongoDatabaseFactory;[m
+[32m+[m[32mimport org.springframework.data.mongodb.core.MongoTemplate;[m
+[32m+[m
+[32m+[m[32m@Configuration[m
+[32m+[m[32mpublic class MongoConfig {[m
+[32m+[m
+[32m+[m[32m    @Bean[m
+[32m+[m[32m    public MongoTemplate mongoTemplate(MongoDatabaseFactory mongoDbFactory) {[m
+[32m+[m[32m        return new MongoTemplate(mongoDbFactory);[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/Configs/SecurityConfig.java b/src/main/java/com/example/collabcraft/Configs/SecurityConfig.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ea8dea1[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/Configs/SecurityConfig.java[m
+[36m@@ -0,0 +1,47 @@[m
+[32m+[m[32mpackage com.example.collabcraft.Configs;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mimport com.example.collabcraft.Services.UserDetailsServiceImpl;[m
+[32m+[m[32mimport org.springframework.beans.factory.annotation.Autowired;[m
+[32m+[m[32mimport org.springframework.context.annotation.Bean;[m
+[32m+[m[32mimport org.springframework.context.annotation.Configuration;[m
+[32m+[m[32mimport org.springframework.security.config.Customizer;[m
+[32m+[m[32mimport org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;[m
+[32m+[m[32mimport org.springframework.security.config.annotation.web.builders.HttpSecurity;[m
+[32m+[m
+[32m+[m[32mimport org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;[m
+[32m+[m[32mimport org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;[m
+[32m+[m
+[32m+[m[32mimport org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;[m
+[32m+[m[32mimport org.springframework.security.crypto.password.PasswordEncoder;[m
+[32m+[m[32mimport org.springframework.security.web.SecurityFilterChain;[m
+[32m+[m
+[32m+[m[32m@Configuration[m
+[32m+[m[32m@EnableWebSecurity[m
+[32m+[m[32mpublic class SecurityConfig {[m
+[32m+[m
+[32m+[m[32m    @Autowired[m
+[32m+[m[32m    private UserDetailsServiceImpl userDetailsService;[m
+[32m+[m
+[32m+[m[32m    @Bean[m
+[32m+[m[32m    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {[m
+[32m+[m[32m        return http.authorizeHttpRequests(request -> request[m
+[32m+[m[32m                                .requestMatchers("/public/**").permitAll()[m
+[32m+[m[32m                        .anyRequest().authenticated()[m
+[32m+[m[32m                        )[m
+[32m+[m[32m                .httpBasic(Customizer.withDefaults())[m
+[32m+[m[32m                .csrf(AbstractHttpConfigurer::disable)[m
+[32m+[m[32m                .build();[m
+[32m+[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @Autowired[m
+[32m+[m[32m    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {[m
+[32m+[m[32m        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @Bean[m
+[32m+[m[32m    public PasswordEncoder passwordEncoder() {[m
+[32m+[m[32m        return new BCryptPasswordEncoder();[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/Controllers/PublicController.java b/src/main/java/com/example/collabcraft/Controllers/PublicController.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..2568fa5[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/Controllers/PublicController.java[m
+[36m@@ -0,0 +1,31 @@[m
+[32m+[m[32mpackage com.example.collabcraft.Controllers;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mimport com.example.collabcraft.Entities.Users;[m
+[32m+[m[32mimport com.example.collabcraft.Services.UserService;[m
+[32m+[m[32mimport org.springframework.beans.factory.annotation.Autowired;[m
+[32m+[m[32mimport org.springframework.http.HttpStatus;[m
+[32m+[m[32mimport org.springframework.http.ResponseEntity;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.PostMapping;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.RequestBody;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.RequestMapping;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.RestController;[m
+[32m+[m
+[32m+[m[32m@RestController[m
+[32m+[m[32m@RequestMapping("/public")[m
+[32m+[m[32mpublic class PublicController {[m
+[32m+[m
+[32m+[m[32m    @Autowired[m
+[32m+[m[32m    UserService userService;[m
+[32m+[m
+[32m+[m[32m    @PostMapping("/create-user")[m
+[32m+[m[32m    public ResponseEntity<String> createUser(@RequestBody Users user){[m
+[32m+[m[32m        try{[m
+[32m+[m[32m            userService.newUser(user);[m
+[32m+[m[32m            return new ResponseEntity<>("new user created", HttpStatus.OK);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        catch (Exception e) {[m
+[32m+[m[32m            return new ResponseEntity<>(e.getMessage().toString(), HttpStatus.BAD_GATEWAY);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/Controllers/TweetController.java b/src/main/java/com/example/collabcraft/Controllers/TweetController.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5adf6a5[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/Controllers/TweetController.java[m
+[36m@@ -0,0 +1,64 @@[m
+[32m+[m[32mpackage com.example.collabcraft.Controllers;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mimport com.example.collabcraft.Entities.Tweets;[m
+[32m+[m[32mimport com.example.collabcraft.Entities.Users;[m
+[32m+[m[32mimport com.example.collabcraft.Services.TweetService;[m
+[32m+[m[32mimport com.example.collabcraft.Services.UserService;[m
+[32m+[m[32mimport org.bson.types.ObjectId;[m
+[32m+[m[32mimport org.springframework.beans.factory.annotation.Autowired;[m
+[32m+[m[32mimport org.springframework.security.core.Authentication;[m
+[32m+[m[32mimport org.springframework.security.core.context.SecurityContextHolder;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.*;[m
+[32m+[m
+[32m+[m[32mimport java.time.LocalDate;[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m
+[32m+[m[32m@RestController[m
+[32m+[m[32m@RequestMapping("/tweets")[m
+[32m+[m[32mpublic class TweetController {[m
+[32m+[m
+[32m+[m[32m    @Autowired[m
+[32m+[m[32m    TweetService tweetService;[m
+[32m+[m
+[32m+[m[32m    @Autowired[m
+[32m+[m[32m    UserService userService;[m
+[32m+[m
+[32m+[m[32m    @GetMapping[m
+[32m+[m[32m    public List<Tweets> getAllTweetsOfUser(){[m
+[32m+[m[32m        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();[m
+[32m+[m[32m        String username=authentication.getName();[m
+[32m+[m[32m        Users user= userService.findByUsername(username);[m
+[32m+[m[32m        return user.getUserTweets();[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @PostMapping("/new-tweet")[m
+[32m+[m[32m    public void createTweet(@RequestBody Tweets tweet){[m
+[32m+[m[32m        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();[m
+[32m+[m[32m        String username=authentication.getName();[m
+[32m+[m[32m        tweet.setTime(LocalDate.now());[m
+[32m+[m[32m        tweetService.createTweet(tweet,username);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @GetMapping("/all-tweets")[m
+[32m+[m[32m    public List<Tweets> getAllTweets(){[m
+[32m+[m[32m        return tweetService.getAllTweets();[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @GetMapping("/{domain}")[m
+[32m+[m[32m    public List<Tweets> getAllTweetsOfDomain(@PathVariable String domain){[m
+[32m+[m[32m        return tweetService.getTweetsByDomain(domain);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @PutMapping("/apply/{objectId}")[m
+[32m+[m[32m    public void apply(@PathVariable ObjectId objectId){[m
+[32m+[m[32m        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();[m
+[32m+[m[32m        String username=authentication.getName();[m
+[32m+[m[32m        Users user=userService.findByUsername(username);[m
+[32m+[m[32m        Tweets tweet= tweetService.getTweetById(objectId);[m
+[32m+[m[32m        if(tweet!=null){[m
+[32m+[m[32m           tweet.getApplications().add(user);[m
+[32m+[m[32m           tweetService.updateTweet(tweet);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/Controllers/UserController.java b/src/main/java/com/example/collabcraft/Controllers/UserController.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..26c30f5[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/Controllers/UserController.java[m
+[36m@@ -0,0 +1,50 @@[m
+[32m+[m[32mpackage com.example.collabcraft.Controllers;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mimport com.example.collabcraft.Entities.Tweets;[m
+[32m+[m[32mimport com.example.collabcraft.Entities.Users;[m
+[32m+[m[32mimport com.example.collabcraft.Services.TweetService;[m
+[32m+[m[32mimport com.example.collabcraft.Services.UserService;[m
+[32m+[m[32mimport org.springframework.beans.factory.annotation.Autowired;[m
+[32m+[m[32mimport org.springframework.http.ResponseEntity;[m
+[32m+[m[32mimport org.springframework.security.core.Authentication;[m
+[32m+[m[32mimport org.springframework.security.core.context.SecurityContextHolder;[m
+[32m+[m[32mimport org.springframework.web.bind.annotation.*;[m
+[32m+[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m
+[32m+[m[32m@RestController[m
+[32m+[m[32m@RequestMapping("/user")[m
+[32m+[m[32mpublic class UserController {[m
+[32m+[m
+[32m+[m[32m    @Autowired[m
+[32m+[m[32m    UserService userService;[m
+[32m+[m
+[32m+[m[32m    @Autowired[m
+[32m+[m[32m    TweetService tweetService;[m
+[32m+[m
+[32m+[m[32m//    @GetMapping("/all")[m
+[32m+[m[32m//    public List<Users> getAllUsers(){[m
+[32m+[m[32m//        return userService.getAllUsers();[m
+[32m+[m[32m//    }[m
+[32m+[m
+[32m+[m[32m    @PutMapping("/update-user")[m
+[32m+[m[32m    public void updateUser(@RequestBody Users user){[m
+[32m+[m[32m        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();[m
+[32m+[m[32m        String username=authentication.getName();[m
+[32m+[m[32m        Users userInDb=userService.findByUsername(username);[m
+[32m+[m[32m            userInDb.setUsername(user.getUsername());[m
+[32m+[m[32m            userInDb.setPassword(user.getPassword());[m
+[32m+[m[32m            userService.newUser(userInDb);[m
+[32m+[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    @DeleteMapping("/delete-user")[m
+[32m+[m[32m    public void deleteUser(){[m
+[32m+[m[32m        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();[m
+[32m+[m[32m        String username=authentication.getName();[m
+[32m+[m[32m        userService.deleteByUsername(username);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/Entities/Tweets.java b/src/main/java/com/example/collabcraft/Entities/Tweets.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0f7cbb2[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/Entities/Tweets.java[m
+[36m@@ -0,0 +1,66 @@[m
+[32m+[m[32mpackage com.example.collabcraft.Entities;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mimport lombok.*;[m
+[32m+[m[32mimport org.bson.types.ObjectId;[m
+[32m+[m[32mimport org.springframework.data.annotation.Id;[m
+[32m+[m[32mimport org.springframework.data.mongodb.core.mapping.Document;[m
+[32m+[m
+[32m+[m[32mimport java.time.LocalDate;[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m
+[32m+[m[32m@Document(collection = "tweets")[m
+[32m+[m[32m@Data[m
+[32m+[m[32m@AllArgsConstructor[m
+[32m+[m[32m@NoArgsConstructor[m
+[32m+[m[32mpublic class Tweets {[m
+[32m+[m
+[32m+[m[32m    @Id[m
+[32m+[m[32m    private ObjectId id;[m
+[32m+[m[32m    @NonNull[m
+[32m+[m[32m    private String content;[m
+[32m+[m[32m    private String domain;[m
+[32m+[m[32m    private LocalDate time;[m
+[32m+[m[32m    private List<Users> applications=new ArrayList<>();[m
+[32m+[m
+[32m+[m[32m    public void setId(ObjectId id) {[m
+[32m+[m[32m        this.id = id;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setApplications(List<Users> applications) {[m
+[32m+[m[32m        this.applications = applications;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public List<Users> getApplications() {[m
+[32m+[m[32m        return applications;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public String getDomain() {[m
+[32m+[m[32m        return domain;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setDomain(String domain) {[m
+[32m+[m[32m        this.domain = domain;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setContent(@NonNull String content) {[m
+[32m+[m[32m        this.content = content;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setTime(LocalDate time) {[m
+[32m+[m[32m        this.time = time;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public ObjectId getId() {[m
+[32m+[m[32m        return id;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public @NonNull String getContent() {[m
+[32m+[m[32m        return content;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public LocalDate getTime() {[m
+[32m+[m[32m        return time;[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/Entities/Users.java b/src/main/java/com/example/collabcraft/Entities/Users.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e22abe4[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/Entities/Users.java[m
+[36m@@ -0,0 +1,120 @@[m
+[32m+[m[32mpackage com.example.collabcraft.Entities;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mimport lombok.*;[m
+[32m+[m[32mimport org.bson.types.ObjectId;[m
+[32m+[m[32mimport org.springframework.data.annotation.Id;[m
+[32m+[m[32mimport org.springframework.data.mongodb.core.index.Indexed;[m
+[32m+[m[32mimport org.springframework.data.mongodb.core.mapping.DBRef;[m
+[32m+[m[32mimport org.springframework.data.mongodb.core.mapping.Document;[m
+[32m+[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m
+[32m+[m[32m@Data[m
+[32m+[m[32m@Document(collection = "users")[m
+[32m+[m[32m@AllArgsConstructor[m
+[32m+[m[32m@NoArgsConstructor[m
+[32m+[m[32m@Setter[m
+[32m+[m[32m@Getter[m
+[32m+[m[32mpublic class Users {[m
+[32m+[m
+[32m+[m[32m    @Id[m
+[32m+[m[32m    private ObjectId id;[m
+[32m+[m
+[32m+[m[32m    @Indexed(unique = true)[m
+[32m+[m[32m    @NonNull[m
+[32m+[m[32m    private String username;[m
+[32m+[m[32m    @NonNull[m
+[32m+[m[32m    private String name;[m
+[32m+[m[32m    @NonNull[m
+[32m+[m[32m    private String password;[m
+[32m+[m[32m    @Indexed(unique = true)[m
+[32m+[m[32m    private String collegeMail;[m
+[32m+[m[32m    private String branch;[m
+[32m+[m[32m    private int year;[m
+[32m+[m[32m    private String domain1;[m
+[32m+[m[32m    private String domain2;[m
+[32m+[m[32m    @DBRef[m
+[32m+[m[32m    private List<Tweets> userTweets=new ArrayList<>();[m
+[32m+[m
+[32m+[m[32m    public void setUsername(@NonNull String username) {[m
+[32m+[m[32m        this.username = username;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setId(ObjectId id) {[m
+[32m+[m[32m        this.id = id;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setName(@NonNull String name) {[m
+[32m+[m[32m        this.name = name;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setPassword(@NonNull String password) {[m
+[32m+[m[32m        this.password = password;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setDomain2(String domain2) {[m
+[32m+[m[32m        this.domain2 = domain2;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setDomain1(String domain1) {[m
+[32m+[m[32m        this.domain1 = domain1;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setYear(int year) {[m
+[32m+[m[32m        this.year = year;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setBranch(String branch) {[m
+[32m+[m[32m        this.branch = branch;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setCollegeMail(String collegeMail) {[m
+[32m+[m[32m        this.collegeMail = collegeMail;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void setUserTweets(List<Tweets> userTweets) {[m
+[32m+[m[32m        this.userTweets = userTweets;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public ObjectId getId() {[m
+[32m+[m[32m        return id;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public @NonNull String getUsername() {[m
+[32m+[m[32m        return username;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public @NonNull String getName() {[m
+[32m+[m[32m        return name;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public @NonNull String getPassword() {[m
+[32m+[m[32m        return password;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public String getCollegeMail() {[m
+[32m+[m[32m        return collegeMail;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public String getBranch() {[m
+[32m+[m[32m        return branch;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public int getYear() {[m
+[32m+[m[32m        return year;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public String getDomain1() {[m
+[32m+[m[32m        return domain1;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public List<Tweets> getUserTweets() {[m
+[32m+[m[32m        return userTweets;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public String getDomain2() {[m
+[32m+[m[32m        return domain2;[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/Repositories/TweetsRepository.java b/src/main/java/com/example/collabcraft/Repositories/TweetsRepository.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..f151793[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/Repositories/TweetsRepository.java[m
+[36m@@ -0,0 +1,13 @@[m
+[32m+[m[32mpackage com.example.collabcraft.Repositories;[m
+[32m+[m
+[32m+[m[32mimport com.example.collabcraft.Entities.Tweets;[m
+[32m+[m[32mimport org.bson.types.ObjectId;[m
+[32m+[m[32mimport org.springframework.data.mongodb.repository.MongoRepository;[m
+[32m+[m[32mimport org.springframework.stereotype.Repository;[m
+[32m+[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m
+[32m+[m[32m@Repository[m
+[32m+[m[32mpublic interface TweetsRepository extends MongoRepository<Tweets, ObjectId> {[m
+[32m+[m[32m     List<Tweets> findByDomain(String domain);[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/Repositories/UserRepository.java b/src/main/java/com/example/collabcraft/Repositories/UserRepository.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d1eb68d[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/Repositories/UserRepository.java[m
+[36m@@ -0,0 +1,13 @@[m
+[32m+[m[32mpackage com.example.collabcraft.Repositories;[m
+[32m+[m
+[32m+[m[32mimport com.example.collabcraft.Entities.Users;[m
+[32m+[m[32mimport org.bson.types.ObjectId;[m
+[32m+[m[32mimport org.springframework.data.mongodb.repository.MongoRepository;[m
+[32m+[m[32mimport org.springframework.stereotype.Repository;[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m@Repository[m
+[32m+[m[32mpublic interface UserRepository extends MongoRepository<Users, ObjectId> {[m
+[32m+[m[32m    Users findByUsername(String username);[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/Services/TweetService.java b/src/main/java/com/example/collabcraft/Services/TweetService.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..911d1cc[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/Services/TweetService.java[m
+[36m@@ -0,0 +1,53 @@[m
+[32m+[m[32mpackage com.example.collabcraft.Services;[m
+[32m+[m
+[32m+[m[32mimport com.example.collabcraft.Entities.Tweets;[m
+[32m+[m[32mimport com.example.collabcraft.Entities.Users;[m
+[32m+[m[32mimport com.example.collabcraft.Repositories.TweetsRepository;[m
+[32m+[m[32mimport com.example.collabcraft.Repositories.UserRepository;[m
+[32m+[m[32mimport org.bson.types.ObjectId;[m
+[32m+[m[32mimport org.springframework.beans.factory.annotation.Autowired;[m
+[32m+[m[32mimport org.springframework.http.HttpStatus;[m
+[32m+[m[32mimport org.springframework.http.ResponseEntity;[m
+[32m+[m[32mimport org.springframework.stereotype.Service;[m
+[32m+[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m
+[32m+[m
+[32m+[m[32m@Service[m
+[32m+[m[32mpublic class TweetService {[m
+[32m+[m
+[32m+[m[32m    @Autowired[m
+[32m+[m[32m    TweetsRepository tweetsRepository;[m
+[32m+[m
+[32m+[m[32m    @Autowired[m
+[32m+[m[32m    UserRepository userRepository;[m
+[32m+[m
+[32m+[m[32m    public Tweets getTweetById(ObjectId id){[m
+[32m+[m[32m        return tweetsRepository.findById(id).orElse(null);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public List<Tweets> getAllTweets(){[m
+[32m+[m[32m        return tweetsRepository.findAll();[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void createTweet(Tweets tweet, String username){[m
+[32m+[m[32m        Users user= userRepository.findByUsername(username);[m
+[32m+[m[32m        Tweets saved=tweetsRepository.save(tweet);[m
+[32m+[m[32m        user.getUserTweets().add(saved);[m
+[32m+[m[32m        userRepository.save(user);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public List<Tweets> getTweetsByDomain(String domain){[m
+[32m+[m[32m        return tweetsRepository.findByDomain(domain);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public ResponseEntity<String> updateTweet(Tweets tweet){[m
+[32m+[m[32m        try {[m
+[32m+[m[32m            tweetsRepository.save(tweet);[m
+[32m+[m[32m            return new ResponseEntity<>(("successfully saved"),HttpStatus.OK);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        catch(Exception e){[m
+[32m+[m[32m            return new ResponseEntity<>(e.getMessage().toString(),HttpStatus.BAD_REQUEST);[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/Services/UserDetailsServiceImpl.java b/src/main/java/com/example/collabcraft/Services/UserDetailsServiceImpl.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8d22bb0[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/Services/UserDetailsServiceImpl.java[m
+[36m@@ -0,0 +1,28 @@[m
+[32m+[m[32mpackage com.example.collabcraft.Services;[m
+[32m+[m
+[32m+[m[32mimport com.example.collabcraft.Entities.Users;[m
+[32m+[m[32mimport com.example.collabcraft.Repositories.UserRepository;[m
+[32m+[m[32mimport org.springframework.beans.factory.annotation.Autowired;[m
+[32m+[m[32mimport org.springframework.security.core.userdetails.User;[m
+[32m+[m[32mimport org.springframework.security.core.userdetails.UserDetails;[m
+[32m+[m[32mimport org.springframework.security.core.userdetails.UserDetailsService;[m
+[32m+[m[32mimport org.springframework.security.core.userdetails.UsernameNotFoundException;[m
+[32m+[m[32mimport org.springframework.stereotype.Service;[m
+[32m+[m
+[32m+[m
+[32m+[m[32m@Service[m
+[32m+[m[32mpublic class UserDetailsServiceImpl implements UserDetailsService {[m
+[32m+[m
+[32m+[m[32m    @Autowired[m
+[32m+[m[32m    UserRepository userRepository;[m
+[32m+[m[32m    @Override[m
+[32m+[m[32m    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {[m
+[32m+[m[32m        Users user=userRepository.findByUsername(username);[m
+[32m+[m[32m        if(user==null)[m
+[32m+[m[32m            throw new UsernameNotFoundException("username not found "+username);[m
+[32m+[m[32m        else[m
+[32m+[m[32m            return User.withUsername(user.getUsername())[m
+[32m+[m[32m                    .password(user.getPassword())[m
+[32m+[m[32m                    .build();[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/java/com/example/collabcraft/Services/UserService.java b/src/main/java/com/example/collabcraft/Services/UserService.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..44d2830[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/java/com/example/collabcraft/Services/UserService.java[m
+[36m@@ -0,0 +1,38 @@[m
+[32m+[m[32mpackage com.example.collabcraft.Services;[m
+[32m+[m
+[32m+[m[32mimport com.example.collabcraft.Entities.Users;[m
+[32m+[m[32mimport com.example.collabcraft.Repositories.UserRepository;[m
+[32m+[m[32mimport org.springframework.beans.factory.annotation.Autowired;[m
+[32m+[m[32mimport org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;[m
+[32m+[m[32mimport org.springframework.security.crypto.password.PasswordEncoder;[m
+[32m+[m[32mimport org.springframework.stereotype.Service;[m
+[32m+[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m
+[32m+[m
+[32m+[m[32m@Service[m
+[32m+[m[32mpublic class UserService {[m
+[32m+[m
+[32m+[m[32m    @Autowired[m
+[32m+[m[32m    UserRepository userRepo;[m
+[32m+[m
+[32m+[m[32m    private static final PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();[m
+[32m+[m
+[32m+[m[32m    public void newUser(Users user){[m
+[32m+[m[32m        user.setPassword(passwordEncoder.encode(user.getPassword()));[m
+[32m+[m[32m        userRepo.save(user);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public List<Users> getAllUsers(){[m
+[32m+[m[32m        return userRepo.findAll();[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public Users findByUsername(String username){[m
+[32m+[m[32m        return userRepo.findByUsername(username);[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void deleteByUsername(String username){[m
+[32m+[m[32m        Users user=userRepo.findByUsername(username);[m
+[32m+[m[32m        userRepo.deleteById(user.getId());[m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/main/resources/application.yml b/src/main/resources/application.yml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ee9d7b7[m
+[1m--- /dev/null[m
+[1m+++ b/src/main/resources/application.yml[m
+[36m@@ -0,0 +1,28 @@[m
+[32m+[m[32mserver:[m
+[32m+[m[32m    port: 8082[m
+[32m+[m
+[32m+[m[32mspring:[m
+[32m+[m[32m    application:[m
+[32m+[m[32m        name: collabcraft[m
+[32m+[m[32m    data:[m
+[32m+[m[32m        mongodb:[m
+[32m+[m[32m            auto-index-creation: true[m
+[32m+[m[32m            database: collabDB[m
+[32m+[m[32m            host: localhost[m
+[32m+[m[32m            port: 27017[m
+[32m+[m[32m    main:[m
+[32m+[m[32m        allow-circular-references: 'true '[m
+[32m+[m
+[32m+[m[32m    servlet:[m
+[32m+[m[32m        multipart:[m
+[32m+[m[32m            max-file-size: 10MB[m
+[32m+[m[32m            max-request-size: 10MB[m
+[32m+[m
+[32m+[m
+[32m+[m[32maws:[m
+[32m+[m[32m    accessKey: AKIA6GBMCQ3B424CBMG6[m
+[32m+[m[32m    bucket:[m
+[32m+[m[32m        name:collabcraftbucket[m
+[32m+[m[32m    secretKey: wrtPmYX3G5Uic+noGuxA6AT9Jua729x3OcL2HrP5[m
+[32m+[m
+[32m+[m
+[1mdiff --git a/src/test/java/com/example/collabcraft/CollabcraftApplicationTests.java b/src/test/java/com/example/collabcraft/CollabcraftApplicationTests.java[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ef112c1[m
+[1m--- /dev/null[m
+[1m+++ b/src/test/java/com/example/collabcraft/CollabcraftApplicationTests.java[m
+[36m@@ -0,0 +1,13 @@[m
+[32m+[m[32mpackage com.example.collabcraft;[m
+[32m+[m
+[32m+[m[32mimport org.junit.jupiter.api.Test;[m
+[32m+[m[32mimport org.springframework.boot.test.context.SpringBootTest;[m
+[32m+[m
+[32m+[m[32m@SpringBootTest[m
+[32m+[m[32mclass CollabcraftApplicationTests {[m
+[32m+[m
+[32m+[m	[32m@Test[m
+[32m+[m	[32mvoid contextLoads() {[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m[32m}[m
