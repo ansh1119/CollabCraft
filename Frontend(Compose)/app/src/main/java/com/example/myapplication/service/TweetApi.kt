@@ -17,5 +17,8 @@ interface TweetApi {
         @Path("id") objectId: String,
     ): Response<Unit>
 
-
+    @GET("/tweets/{domain}")
+    suspend fun getTweetsByDomain(
+        @Path("domain") domain:String
+    ):Response<List<TweetResponse>>
 }

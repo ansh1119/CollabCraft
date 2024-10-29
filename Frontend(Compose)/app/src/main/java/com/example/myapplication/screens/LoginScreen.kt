@@ -223,7 +223,9 @@ fun LoginScreen(navController: NavHostController) {
                             ),
                             shape = RoundedCornerShape(28.dp),
                             colors = ButtonDefaults.buttonColors(Color(0xFF00E0FF)),
-                            onClick = { publicViewModel.login(
+                            onClick = {
+                                tokenManager.saveUsername(username)
+                                publicViewModel.login(
                                 LoginRequest(username,password),
                                 onSuccess = {
                                     navController.navigate("homescreen")
