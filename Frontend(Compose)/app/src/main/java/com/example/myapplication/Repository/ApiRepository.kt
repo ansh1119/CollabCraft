@@ -1,6 +1,7 @@
 package com.example.myapplication.Repository
 
 import TweetApi
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.myapplication.models.Tweet
 import com.example.myapplication.models.TweetResponse
@@ -18,6 +19,13 @@ class ApiRepository(private val tweetApi: TweetApi) {
         val response=tweetApi.getTweets()
         if(response.isSuccessful && response.body()!=null){
             _tweets.emit(response.body()!!)
+        }
+    }
+
+    suspend fun application(objectId:String){
+        val response=tweetApi.apply(objectId)
+        if(response.isSuccessful && response.body()!=null){
+            Log.d("APPLICATION","APPLIED SUCCESSFULLY")
         }
     }
 

@@ -30,4 +30,10 @@ val tweets: StateFlow<List<TweetResponse>> get() = repository.tweets
             }
         }
     }
+
+    fun application(objectId:String){
+        viewModelScope.launch {
+            repository.application(objectId)
+        }
+    }
 }

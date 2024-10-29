@@ -2,7 +2,6 @@ package com.example.myapplication.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,8 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,12 +29,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.R
-import com.example.myapplication.models.Tweet
 import com.example.myapplication.models.TweetResponse
-import com.skydoves.landscapist.glide.GlideImage
+import com.example.myapplication.viewmodel.TweetViewModel
 
 @Composable
-fun Tweet(tweet: TweetResponse) {
+fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,13 +53,6 @@ fun Tweet(tweet: TweetResponse) {
                 verticalAlignment = Alignment.CenterVertically // Center all elements vertically
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-//                    GlideImage(
-//                        imageModel = { tweet.imageUrl },
-//                        modifier = Modifier
-//                            .size(36.dp)
-//                            .clip(CircleShape)
-//                            .border(2.dp, Color.Gray, CircleShape)
-//                    )
 
                     Spacer(modifier = Modifier.width(10.dp))
 
@@ -163,15 +155,20 @@ fun Tweet(tweet: TweetResponse) {
                         .background(Color(0xFF4CAF50)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = "Apply",
-                        color = Color.White,
-                        style = TextStyle(
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold
-                        ),
-                        modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
-                    )
+                    Button(onClick = {tweetViewModel.application(tweet.id)},
+                        colors = ButtonDefaults.buttonColors(Color(0xFF5EE45B)),
+                        modifier = Modifier.padding(horizontal = 4.dp,
+                        vertical = 2.dp),
+                    ) {
+                        Text(
+                            text = "Apply",
+                            color = Color.White,
+                            style = TextStyle(
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                    }
                 }
             }
 
