@@ -58,7 +58,7 @@ fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
 
                     Text(
                         text = "@${tweet.author}", color = Color.White, style = TextStyle(
-                            fontSize = 13.sp, fontWeight = FontWeight.SemiBold
+                            fontSize = 16.sp, fontWeight = FontWeight.SemiBold
                         )
                     )
 
@@ -68,7 +68,7 @@ fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
                         text = "${tweet.time} ",
                         color = Color(0xff8E9599),
                         style = TextStyle(
-                            fontSize = 8.sp, fontWeight = FontWeight.SemiBold
+                            fontSize = 12.sp, fontWeight = FontWeight.SemiBold
                         )
                     )
                 }
@@ -88,11 +88,11 @@ fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
                 color = Color(0xffffffff),
                 modifier = Modifier.padding(start = 60.dp, end = 30.dp),
                 style = TextStyle(
-                    fontSize = 13.sp, fontWeight = FontWeight.SemiBold
+                    fontSize = 16.sp, fontWeight = FontWeight.SemiBold
                 )
             )
 
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
             Row(
                 modifier = Modifier.padding(start = 60.dp, end = 30.dp),

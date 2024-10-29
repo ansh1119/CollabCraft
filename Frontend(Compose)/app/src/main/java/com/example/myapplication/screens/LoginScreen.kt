@@ -1,6 +1,7 @@
 package com.example.myapplication.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,6 +36,10 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -54,6 +59,10 @@ import com.example.myapplication.viewModels.PublicViewModelFactory
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavHostController) {
+    val Comissioner = FontFamily(
+        Font(R.font.comissioner)
+    )
+
 
     val context = LocalContext.current
     val tokenManager = TokenManager(context)
@@ -80,42 +89,58 @@ fun LoginScreen(navController: NavHostController) {
             painter = painterResource(id = R.drawable.backgroundlogin),
             contentDescription = ""
         )
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = Color.Transparent
-        ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.height(70.dp))
+//                Text(
+//                    modifier = Modifier
+//                        .fillMaxWidth(.8f),
+//                    text = "Welcome to\nCoLabCraft",
+//                    textAlign = TextAlign.Left,
+//                    color = Color.White,
+//                    fontSize = 44.sp
+//                )
                 Text(
+                    fontFamily = Comissioner,
+                    fontWeight = FontWeight.SemiBold,
                     modifier = Modifier
-                        .weight(.1f)
                         .fillMaxWidth(.8f),
-                    text = "Welcome to\nCoLabCraft",
+                    text = "Welcome to",
+                    textAlign = TextAlign.Left,
+                    color = Color.White,
+                    fontSize = 44.sp
+                )
+                Text(
+                    fontFamily = Comissioner,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier
+                        .fillMaxWidth(.8f),
+                    text = "CollabCraft",
                     textAlign = TextAlign.Left,
                     color = Color.White,
                     fontSize = 44.sp
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Text(
-                    modifier = Modifier.fillMaxWidth(.8f),
+                    fontFamily = Comissioner,
+                    fontWeight = FontWeight.Normal,
+                    modifier = Modifier
+                        .fillMaxWidth(.8f),
                     text = "Sign in to your account",
                     fontSize = 24.sp,
                     color = Color.White
                 )
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(50.dp))
 
                 Row {
                     Spacer(modifier = Modifier.weight(.1f))
 
                     Card(
                         modifier = Modifier
-                            .weight(.8f)
-                            .shadow(elevation = 8.dp, spotColor = Color.Black)
-                            .safeContentPadding(),
+                            .weight(.85f),
                         colors = CardDefaults.cardColors(containerColor = Color(0xFF314957)),
                     ) {
                         Spacer(modifier = Modifier.height(10.dp))
@@ -128,8 +153,10 @@ fun LoginScreen(navController: NavHostController) {
                         OutlinedTextField(
                             modifier = Modifier
                                 .fillMaxWidth(.8f)
-                                .height(60.dp)
                                 .align(Alignment.CenterHorizontally),
+                            label = {
+                                Text(text = "Username")
+                            },
                             value = username,
                             onValueChange = { username = it },
                             shape = RoundedCornerShape(12.dp),
@@ -153,6 +180,7 @@ fun LoginScreen(navController: NavHostController) {
                                 .height(60.dp)
                                 .align(Alignment.CenterHorizontally),
                             value = password,
+                            label = { Text(text = "Password")},
                             onValueChange = { password = it },
                             shape = RoundedCornerShape(12.dp),
                             leadingIcon = {
@@ -178,10 +206,9 @@ fun LoginScreen(navController: NavHostController) {
                             Spacer(modifier = Modifier.weight(.1f))
                             Text(
                                 modifier = Modifier
-                                    .weight(.1f)
                                     .padding(end = 20.dp),
                                 text = "Forgot Password",
-                                fontSize = 12.sp,
+                                fontSize = 8.sp,
                                 color = Color(0xFF00E0FF)
                             )
                         }
@@ -211,7 +238,8 @@ fun LoginScreen(navController: NavHostController) {
                         }
                         Spacer(modifier = Modifier.height(20.dp))
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Divider(modifier = Modifier.weight(.4f))
+                            Divider(modifier = Modifier.weight(.4f),
+                                color = Color(0xFF586B76))
                             Text(
                                 modifier = Modifier.weight(.2f),
                                 textAlign = TextAlign.Center,
@@ -219,7 +247,8 @@ fun LoginScreen(navController: NavHostController) {
                                 fontSize = 12.sp,
                                 text = "or"
                             )
-                            Divider(modifier = Modifier.weight(.4f))
+                            Divider(modifier = Modifier.weight(.4f),
+                                color = Color(0xFF586B76))
                         }
                         Spacer(modifier = Modifier.height(20.dp))
                         OutlinedButton(
@@ -254,6 +283,9 @@ fun LoginScreen(navController: NavHostController) {
                                 color = Color.White
                             )
                             Text(
+                                modifier=Modifier.clickable {
+                                    navController.navigate(route = "sign-up")
+                                },
                                 text = "Sign Up",
                                 color = Color(0xFF00E0FF)
                             )
@@ -266,8 +298,6 @@ fun LoginScreen(navController: NavHostController) {
             }
         }
     }
-
-}
 
 @Composable
 @Preview

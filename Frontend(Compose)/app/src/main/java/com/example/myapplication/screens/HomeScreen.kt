@@ -4,19 +4,29 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.R
 import com.example.myapplication.Repository.ApiRepository
+import com.example.myapplication.components.BottomNav
 import com.example.myapplication.components.Tweet
+import com.example.myapplication.models.BottomNavItem
 import com.example.myapplication.retrofitHelper.RetrofitInstance
 import com.example.myapplication.viewModels.TweetViewModelFactory
 import com.example.myapplication.viewmodel.TweetViewModel
@@ -32,9 +42,22 @@ fun HomeScreen(navController: NavHostController) {
         factory = TweetViewModelFactory(ApiRepository(retrofitInstance.providesTweetAPI(context)))
     )
 
+   
+    var selected by remember{
+        mutableStateOf(0)
+    }
+
     val tweetList = tweetViewModel.tweets.collectAsState()
     Log.d("I AM HERE","working good")
-    Scaffold{
+    Scaffold(
+        bottomBar = {
+            NavigationBar(modifier=Modifier.fillMaxWidth()) {
+                BottomNav(navController = navController)
+            }
+        },
+        containerColor = Color(0xFF1D2A32)
+    ){
+
         innerPadding->
         Box(modifier = Modifier.padding(innerPadding)) {
             LazyColumn {
