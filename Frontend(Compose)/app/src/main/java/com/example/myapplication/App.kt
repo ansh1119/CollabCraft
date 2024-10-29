@@ -3,11 +3,14 @@ package com.example.myapplication
 
 import SignUp
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.myapplication.retrofitHelper.TokenManager
 import com.example.myapplication.screens.HomeScreen
 import com.example.myapplication.screens.LoginScreen
 import com.example.myapplication.screens.SignUp2
@@ -16,6 +19,11 @@ import com.example.myapplication.screens.SignUp2
 fun App() {
 
     val navController = rememberNavController()
+
+    val context= LocalContext.current
+    val tokenManager = remember { TokenManager(context) }
+
+    val jwtToken=tokenManager.getToken()
 
     NavHost(navController = navController, startDestination = "login"){
         composable(route="sign-up") {
@@ -42,6 +50,8 @@ fun App() {
         }
 
         composable(route="login") {
+            if(jwtToken!=null)
+                navController.navigate(route="homescreen")
             LoginScreen(navController)
         }
     }
