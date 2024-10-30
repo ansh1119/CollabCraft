@@ -1,6 +1,8 @@
 package com.example.myapplication.viewmodel
 
 import android.util.Log
+import androidx.compose.animation.rememberSplineBasedDecay
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.Repository.ApiRepository
@@ -25,6 +27,7 @@ val tweets: StateFlow<List<TweetResponse>> get() = repository.tweets
 //    }
 
     fun getTweets() {
+
         Log.d("I AM HERE","working good")
         viewModelScope.launch {
             try {
@@ -36,6 +39,7 @@ val tweets: StateFlow<List<TweetResponse>> get() = repository.tweets
             } catch (e: Exception) {
                 Log.w("EXCEPTION OCCURED",e.toString())
             }
+
         }
     }
 
@@ -55,6 +59,12 @@ val tweets: StateFlow<List<TweetResponse>> get() = repository.tweets
         viewModelScope.launch {
             val response=repository.getTweetsOfUser(username)
             Log.d("VM","VM CALL")
+        }
+    }
+
+    fun createTweet(tweet:Tweet){
+        viewModelScope.launch {
+            val response= repository.createTweet(tweet)
         }
     }
 }

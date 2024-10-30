@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInstance(private val token: String? = null) {
 
-    private val BASE_URL = "https://76cd-2401-4900-1c3c-3c62-60e0-f7fd-a209-52cd.ngrok-free.app/"
+    private val BASE_URL = "https://2b8b-2401-4900-1c3c-3c62-60e0-f7fd-a209-52cd.ngrok-free.app/"
 
 
     val gson = GsonBuilder()

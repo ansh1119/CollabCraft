@@ -1,5 +1,7 @@
 package com.example.myapplication.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -41,7 +43,11 @@ import com.example.myapplication.R
 import com.example.myapplication.models.TweetResponse
 import com.example.myapplication.retrofitHelper.TokenManager
 import com.example.myapplication.viewmodel.TweetViewModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
 
@@ -51,6 +57,30 @@ fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
     val context = LocalContext.current
     val tokenManager = remember { TokenManager(context) }
     val currentUserId = tokenManager.getUsername()
+//    val now = LocalDateTime.now()
+//    val postedTime=tweet.time
+//    val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+//    val postDateTime = LocalDateTime.parse(postedTime, formatter)
+//
+//
+//    val days = ChronoUnit.DAYS.between(postDateTime, now)
+//    val hours = ChronoUnit.HOURS.between(postDateTime, now)
+//    val minutes = ChronoUnit.MINUTES.between(postDateTime, now)
+//    val seconds = ChronoUnit.SECONDS.between(postDateTime, now)
+//
+//
+//    val ago:Long
+//    if (days > 0)
+//        ago=days
+//    else if (hours > 0)
+//        ago=hours
+//    else if (minutes > 0)
+//        ago=minutes
+//    else if (seconds > 0)
+//        ago=seconds
+//    else
+//        ago=0
+
 
     var clicked by remember {
         mutableStateOf(1)
@@ -104,14 +134,6 @@ fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
                         )
                     }
                     Spacer(modifier = Modifier.width(10.dp))
-                    Text(
-                        fontFamily = Comissioner,
-                        text = "${tweet.time} ",
-                        color = Color(0xff8E9599),
-                        style = TextStyle(
-                            fontSize = 12.sp, fontWeight = FontWeight.SemiBold
-                        )
-                    )
 
                 }
 
@@ -120,6 +142,9 @@ fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
                     when(tweet.domain){
                         "ML"-> MLChip()
                         "iot"-> AndroidChip()
+                        "Android"-> AndroidChip()
+                        "Web" -> WebChip()
+                        "AR/VR"-> ARVRChip()
                     }
                 }
             }
@@ -138,18 +163,26 @@ fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
             Spacer(modifier = Modifier.height(10.dp))
 
             Row(
-                modifier = Modifier.padding(start = 60.dp, end = 30.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 30.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Group 1: Like
+//                 Group 1: Time
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.weight(1f) // Ensures equal spacing
+                    modifier = Modifier.weight(2f) // Ensures equal spacing
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.like),
+                        painter = painterResource(id = R.drawable.baseline_access_time_filled_24),
                         contentDescription = "like",
                         modifier = Modifier.size(16.dp)
+                    )
+                    Text(
+                        fontFamily = Comissioner,
+                        text = "${tweet.time}",
+                        color = Color(0xff8E9599),
+                        style = TextStyle(
+                            fontSize = 12.sp, fontWeight = FontWeight.SemiBold
+                        )
                     )
 
                 }
@@ -157,7 +190,7 @@ fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
                 // Group 2: Number of Applicants
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(2f)
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.comments),
@@ -172,26 +205,26 @@ fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
 
                 }
 
-                // Group 3: Repost
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.repost),
-                        contentDescription = "repost",
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Text(
-                        text = "2",
-                        color = Color(0xff8E9599),
-                        style = TextStyle(
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.SemiBold
-                        ),
-                        modifier = Modifier.padding(start = 5.dp)
-                    )
-                }
+//                // Group 3: Repost
+//                Row(
+//                    verticalAlignment = Alignment.CenterVertically,
+//                    modifier = Modifier.weight(1f)
+//                ) {
+//                    Image(
+//                        painter = painterResource(id = R.drawable.repost),
+//                        contentDescription = "repost",
+//                        modifier = Modifier.size(16.dp)
+//                    )
+//                    Text(
+//                        text = "2",
+//                        color = Color(0xff8E9599),
+//                        style = TextStyle(
+//                            fontSize = 12.sp,
+//                            fontWeight = FontWeight.SemiBold
+//                        ),
+//                        modifier = Modifier.padding(start = 5.dp)
+//                    )
+//                }
 
 //                 Group 4: Apply Button
                 Box(
@@ -199,10 +232,9 @@ fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
                         .weight(1f)
                         .width(42.dp)
                         .height(30.dp)
-                        .clip(RoundedCornerShape(6.5.dp)),
+                        .clip(RoundedCornerShape(2.dp)),
                     contentAlignment = Alignment.Center
                 ) {
-
                     Button(
                         onClick = {
                             clicked = 0
@@ -211,7 +243,8 @@ fun Tweet(tweet: TweetResponse, tweetViewModel: TweetViewModel) {
                         colors = ButtonDefaults.buttonColors(Color(0xFF5EE45B)),
                         enabled = !tweet.applications.contains(currentUserId) && (clicked == 1),
                         modifier = Modifier.padding(
-                            horizontal = 4.dp,
+//                            start = 10.dp,
+                            horizontal = 10.dp,
                             vertical = 2.dp
                         ),
                     ) {

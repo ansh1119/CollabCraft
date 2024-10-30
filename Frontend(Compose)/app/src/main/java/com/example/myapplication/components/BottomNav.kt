@@ -25,50 +25,36 @@ import com.example.myapplication.retrofitHelper.TokenManager
 
 @Composable
 fun BottomNav(navController: NavController) {
-    var context: Context =LocalContext.current
-
+    val context: Context = LocalContext.current
     val tokenManager = remember { TokenManager(context) }
-    val username = tokenManager.getUsername()
+    val username = tokenManager.getUsername() ?: "login" // Fallback
 
-
-    val bottomNavItems= listOf(
-        BottomNavItem(route ="homescreen", selectedIcon = R.drawable.homeon, unselectedIcon = R.drawable.home),
-        BottomNavItem(route="create", selectedIcon = R.drawable.addon, unselectedIcon = R.drawable.add),
-        BottomNavItem(route = "profile/${username}", selectedIcon = R.drawable.useron, unselectedIcon = R.drawable.maleuser)
+    val bottomNavItems = listOf(
+        BottomNavItem(route = "homescreen", selectedIcon = R.drawable.homeon, unselectedIcon = R.drawable.home),
+        BottomNavItem(route = "create", selectedIcon = R.drawable.addon, unselectedIcon = R.drawable.add),
+        BottomNavItem(route = "profile/$username", selectedIcon = R.drawable.useron, unselectedIcon = R.drawable.maleuser)
     )
 
-    var selected by remember{
-        mutableStateOf(0)
-    }
-
-
-
-
-
+    var selected by remember { mutableStateOf(0) }
 
     NavigationBar {
         bottomNavItems.forEachIndexed { index, bottomNavItem ->
-            NavigationBarItem(modifier = Modifier.scale(2.5f),
+            NavigationBarItem(
+                modifier = Modifier.scale(2.5f),
                 selected = index == selected,
                 onClick = {
                     selected = index
-                    navController.navigate(bottomNavItem.route)
+                    navController.navigate(bottomNavItem.route) {
+                        popUpTo(navController.graph.startDestinationId) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 },
                 icon = {
-                    if (index == selected) {
-                        Icon(
-
-                            painter = painterResource(id = bottomNavItem.selectedIcon),
-                            contentDescription = ""
-                        )
-                    } else {
-                        Icon(
-                            painter = painterResource(id = bottomNavItem.unselectedIcon),
-                            contentDescription = ""
-                        )
-                    }
-                })
-
+                    val icon = if (index == selected) bottomNavItem.selectedIcon else bottomNavItem.unselectedIcon
+                    Icon(painter = painterResource(id = icon), contentDescription = null)
+                }
+            )
         }
     }
 }

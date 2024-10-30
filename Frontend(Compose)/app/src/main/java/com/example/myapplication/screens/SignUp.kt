@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
@@ -62,13 +64,16 @@ fun SignUp(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
 
 
-        Image(modifier=Modifier.fillMaxSize()
+        Image(modifier= Modifier
+            .fillMaxSize()
             .scale(1.2f),
             painter = painterResource(id = R.drawable.signupbg),
             contentDescription = "")
 
 
-        Column(modifier = Modifier.fillMaxSize(),
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(modifier = Modifier.height(50.dp))
             Text(
@@ -79,7 +84,7 @@ fun SignUp(navController: NavController) {
                 fontSize = 36.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
-                    .padding( top = 80.dp)
+                    .padding(top = 80.dp)
                     .fillMaxWidth()
             )
 

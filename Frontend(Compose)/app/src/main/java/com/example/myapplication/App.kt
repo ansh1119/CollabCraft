@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.myapplication.retrofitHelper.TokenManager
 import com.example.myapplication.screens.ApplicantsListScreen
+import com.example.myapplication.screens.CreateTweetScreen
 import com.example.myapplication.screens.HomeScreen
 import com.example.myapplication.screens.LoginScreen
 import com.example.myapplication.screens.ProfileScreen
@@ -72,6 +73,10 @@ fun App() {
         ) {
             val id= it.arguments?.getString("id")
             ApplicantsListScreen(navController, id.toString())
+        }
+
+        composable(route="create") {
+            CreateTweetScreen(navController = navController)
         }
     }
 }

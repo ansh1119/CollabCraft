@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -72,6 +74,8 @@ fun LoginScreen(navController: NavHostController) {
         factory = PublicViewModelFactory(PublicRepository(RetrofitInstance().providesPublicApiService()))
     )
 
+
+
     var username by remember {
         mutableStateOf("")
     }
@@ -85,7 +89,8 @@ fun LoginScreen(navController: NavHostController) {
         Image(
             modifier = Modifier
                 .fillMaxSize()
-                .scale(1.2f),
+                .scale(1.2f)
+                .verticalScroll(rememberScrollState()),
             painter = painterResource(id = R.drawable.backgroundlogin),
             contentDescription = ""
         )
@@ -225,6 +230,7 @@ fun LoginScreen(navController: NavHostController) {
                             colors = ButtonDefaults.buttonColors(Color(0xFF00E0FF)),
                             onClick = {
                                 tokenManager.saveUsername(username)
+
                                 publicViewModel.login(
                                 LoginRequest(username,password),
                                 onSuccess = {

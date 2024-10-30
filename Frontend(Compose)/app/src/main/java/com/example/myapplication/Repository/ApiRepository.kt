@@ -51,4 +51,9 @@ class ApiRepository(private val tweetApi: TweetApi) {
         }
     }
 
+    suspend fun createTweet(tweet:Tweet){
+        val response=tweetApi.createTweet(tweet)
+        Log.d("Repo", response.body().toString())
+    }
+
 }

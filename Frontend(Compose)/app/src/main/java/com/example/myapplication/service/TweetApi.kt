@@ -1,6 +1,7 @@
 import com.example.myapplication.models.Tweet
 import com.example.myapplication.models.TweetResponse
 import com.example.myapplication.models.User
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -26,4 +27,9 @@ interface TweetApi {
     suspend fun getTweetsOfUser(
         @Path("username") username:String
     ):Response<List<TweetResponse>>
+
+    @POST("/tweets/new-tweet")
+    suspend fun createTweet(
+        @Body tweet:Tweet
+    ):Response<ResponseBody>
 }

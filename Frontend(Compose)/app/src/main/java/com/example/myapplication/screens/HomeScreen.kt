@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -41,6 +42,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
 import com.example.myapplication.Repository.ApiRepository
 import com.example.myapplication.components.BottomNav
+import com.example.myapplication.components.CircularIndeterminateProgressBar
 import com.example.myapplication.components.DropMenu
 import com.example.myapplication.components.TopBar
 import com.example.myapplication.components.Tweet
@@ -61,7 +63,7 @@ fun HomeScreen(navController: NavHostController) {
         factory = TweetViewModelFactory(ApiRepository(retrofitInstance.providesTweetAPI(context)))
     )
 
-
+//    val loading =tweetViewModel.loading.value
     var selected by remember {
         mutableStateOf(0)
     }
@@ -94,6 +96,7 @@ fun HomeScreen(navController: NavHostController) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
                 ) {
+
                     DropMenu(
                         options = domainList,
                         selectedOption = domain
@@ -108,10 +111,11 @@ fun HomeScreen(navController: NavHostController) {
 
                     }
                 }
-                Divider(
+                HorizontalDivider(
                     modifier = Modifier.fillMaxWidth(),
                     color = Color(0xFF586B76)
                 )
+//                CircularIndeterminateProgressBar(isDispayed = loading)
                 Spacer(modifier = Modifier.height(10.dp))
                 LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
                     items(tweetList.value.reversed()) { tweetData -> //reversed to get the latest colab first

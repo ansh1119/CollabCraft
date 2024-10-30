@@ -16,6 +16,10 @@ class TokenManager(context: Context) {
         prefs.edit().putString("USER_NAME", username).apply()
     }
 
+    fun saveName(name: String) {
+        prefs.edit().putString("NAME", name).apply()
+    }
+
     // Retrieve token from shared preferences
     fun getToken(): String? {
         return prefs.getString("USER_TOKEN", null)
@@ -24,6 +28,10 @@ class TokenManager(context: Context) {
     // Retrieve username from shared preferences
     fun getUsername(): String? {
         return prefs.getString("USER_NAME", null)
+    }
+
+    fun getName(): String? {
+        return prefs.getString("NAME", null)
     }
 
     // Clear all saved data (optional - use during logout)

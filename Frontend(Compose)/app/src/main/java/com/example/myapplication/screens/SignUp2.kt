@@ -6,7 +6,9 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
@@ -47,11 +49,14 @@ fun SignUp2(navController: NavController, username: String, password: String) {
         )
     )
     Box(modifier = Modifier.fillMaxSize()) {
-        Image(modifier=Modifier.fillMaxSize()
+        Image(modifier= Modifier
+            .fillMaxSize()
             .scale(1.2f),
             painter = painterResource(id = R.drawable.signupmorebg),
             contentDescription = "")
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())) {
             Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = "One last step to set \nup your account.",
