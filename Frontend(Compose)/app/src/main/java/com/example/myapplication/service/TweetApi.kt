@@ -26,6 +26,4 @@ interface TweetApi {
     suspend fun getTweetsOfUser(
         @Path("username") username:String
     ):Response<List<TweetResponse>>
-
-
 }
