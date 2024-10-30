@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import App
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity

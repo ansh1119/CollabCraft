@@ -2,7 +2,9 @@ package com.example.myapplication.retrofitHelper
 
 import TweetApi
 import android.content.Context
+import com.example.myapplication.models.User
 import com.example.myapplication.service.PublicApiService
+import com.example.myapplication.service.UserApi
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -10,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInstance(private val token: String? = null) {
 
-    private val BASE_URL = "https://8392-2401-4900-1c3c-3c62-60e0-f7fd-a209-52cd.ngrok-free.app/"
+    private val BASE_URL = "https://76cd-2401-4900-1c3c-3c62-60e0-f7fd-a209-52cd.ngrok-free.app/"
 
 
     val gson = GsonBuilder()
@@ -59,5 +61,9 @@ class RetrofitInstance(private val token: String? = null) {
     // Authenticated API service (requires authentication)
     fun providesTweetAPI(context: Context): TweetApi {
         return providesAuthRetrofit(context).create(TweetApi::class.java)
+    }
+
+    fun providesUserAPI(context: Context): UserApi {
+        return providesAuthRetrofit(context).create(UserApi::class.java)
     }
 }

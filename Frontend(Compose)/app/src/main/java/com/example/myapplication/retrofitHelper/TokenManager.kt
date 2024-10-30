@@ -30,4 +30,6 @@ class TokenManager(context: Context) {
     fun clearData() {
         prefs.edit().clear().apply()
     }
+
+
 }

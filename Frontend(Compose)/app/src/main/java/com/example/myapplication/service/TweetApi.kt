@@ -21,4 +21,11 @@ interface TweetApi {
     suspend fun getTweetsByDomain(
         @Path("domain") domain:String
     ):Response<List<TweetResponse>>
+
+    @GET("/tweets/get-tweets/{username}")
+    suspend fun getTweetsOfUser(
+        @Path("username") username:String
+    ):Response<List<TweetResponse>>
+
+
 }

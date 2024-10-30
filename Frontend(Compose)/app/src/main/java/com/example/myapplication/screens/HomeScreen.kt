@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
@@ -41,6 +42,7 @@ import com.example.myapplication.R
 import com.example.myapplication.Repository.ApiRepository
 import com.example.myapplication.components.BottomNav
 import com.example.myapplication.components.DropMenu
+import com.example.myapplication.components.TopBar
 import com.example.myapplication.components.Tweet
 import com.example.myapplication.models.BottomNavItem
 import com.example.myapplication.retrofitHelper.RetrofitInstance
@@ -69,6 +71,7 @@ fun HomeScreen(navController: NavHostController) {
         mutableStateOf("")
     }
 
+    tweetViewModel.getTweets()
     val tweetList = tweetViewModel.tweets.collectAsState()
 
 
@@ -76,27 +79,7 @@ fun HomeScreen(navController: NavHostController) {
     Log.d("I AM HERE", "working good")
     Scaffold(
         topBar = {
-            TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF1D2A32),
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
-                title = {
-                    Column {
-                        Row {
-                            Spacer(modifier = Modifier.width(30.dp))
-                            Image(
-                                painter = painterResource(id = R.drawable.colabcraft),
-                                contentDescription = "",
-                                modifier = Modifier.scale(2.5f)
-                            )
-                        }
-
-                    }
-
-
-                }
-            )
+            TopBar(navController, context)
         },
         bottomBar = {
             NavigationBar(modifier = Modifier.fillMaxWidth()) {
@@ -130,7 +113,7 @@ fun HomeScreen(navController: NavHostController) {
                     color = Color(0xFF586B76)
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                LazyColumn {
+                LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
                     items(tweetList.value.reversed()) { tweetData -> //reversed to get the latest colab first
                         Spacer(modifier = Modifier.height(10.dp))
                         Tweet(tweetData, tweetViewModel)

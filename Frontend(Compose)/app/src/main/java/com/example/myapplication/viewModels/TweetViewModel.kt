@@ -16,12 +16,13 @@ class TweetViewModel(private var repository:ApiRepository) : ViewModel() {
 //    private val _tweets = MutableStateFlow<List<Tweet>>(emptyList())
 val tweets: StateFlow<List<TweetResponse>> get() = repository.tweets
 
-    val tweetsByDomain: StateFlow<List<TweetResponse>> get() = repository.tweetsByDomain
+    val tweetsOfUser:StateFlow<List<TweetResponse>> get()=repository.tweetsOfUser
 
 
-    init {
-        getTweets()
-    }
+//
+//    init {
+//        getTweets()
+//    }
 
     fun getTweets() {
         Log.d("I AM HERE","working good")
@@ -47,6 +48,13 @@ val tweets: StateFlow<List<TweetResponse>> get() = repository.tweets
     fun getTweetsByDomain(domain:String){
         viewModelScope.launch {
             val response=repository.getTweetsByDomain(domain)
+        }
+    }
+
+    fun getTweetsOfUser(username:String){
+        viewModelScope.launch {
+            val response=repository.getTweetsOfUser(username)
+            Log.d("VM","VM CALL")
         }
     }
 }

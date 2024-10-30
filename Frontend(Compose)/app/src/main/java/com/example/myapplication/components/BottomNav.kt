@@ -1,5 +1,6 @@
 package com.example.myapplication.components
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.material3.Icon
@@ -14,23 +15,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication.R
 import com.example.myapplication.models.BottomNavItem
+import com.example.myapplication.retrofitHelper.TokenManager
 
 @Composable
 fun BottomNav(navController: NavController) {
+    var context: Context =LocalContext.current
+
+    val tokenManager = remember { TokenManager(context) }
+    val username = tokenManager.getUsername()
+
+
     val bottomNavItems= listOf(
-        BottomNavItem(route ="home", selectedIcon = R.drawable.homeon, unselectedIcon = R.drawable.home),
+        BottomNavItem(route ="homescreen", selectedIcon = R.drawable.homeon, unselectedIcon = R.drawable.home),
         BottomNavItem(route="create", selectedIcon = R.drawable.addon, unselectedIcon = R.drawable.add),
-        BottomNavItem(route = "profile", selectedIcon = R.drawable.useron, unselectedIcon = R.drawable.maleuser)
+        BottomNavItem(route = "profile/${username}", selectedIcon = R.drawable.useron, unselectedIcon = R.drawable.maleuser)
     )
 
     var selected by remember{
         mutableStateOf(0)
     }
+
+
+
+
 
 
     NavigationBar {

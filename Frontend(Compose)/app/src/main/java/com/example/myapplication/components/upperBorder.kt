@@ -18,8 +18,8 @@ fun Modifier.upperBorder(thickness: Dp, color: Color): Modifier {
 
         drawLine(
             color = color,
-            start = Offset(x = -width, y = 0f),
-            end = Offset(x = width*2, y = 0f),
+            start = Offset(x = 0f, y = 0f),
+            end = Offset(x = width, y = 0f),
             strokeWidth = strokeWidthPx
         )
     }
