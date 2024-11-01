@@ -1764,10 +1764,6 @@ Date:   Sun Oct 20 14:27:43 2024 +0530
 [32m+[m
 [32m+[m
 [32m+[m[32maws:[m
-[32m+[m[32m    accessKey: AKIA6GBMCQ3B424CBMG6[m
-[32m+[m[32m    bucket:[m
-[32m+[m[32m        name:collabcraftbucket[m
-[32m+[m[32m    secretKey: wrtPmYX3G5Uic+noGuxA6AT9Jua729x3OcL2HrP5[m
 [32m+[m
 [32m+[m
 [1mdiff --git a/src/test/java/com/example/collabcraft/CollabcraftApplicationTests.java b/src/test/java/com/example/collabcraft/CollabcraftApplicationTests.java[m
